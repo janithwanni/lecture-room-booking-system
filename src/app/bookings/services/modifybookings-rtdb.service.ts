@@ -1,37 +1,64 @@
-import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { Observable, of, concat } from 'rxjs';
-import { UserInfoManagerService } from '../../shared/services/user-info-manager.service';
-import { flatMap, map, take, mergeMap, takeLast, filter, concatAll } from 'rxjs/operators';
-import {TableRow} from '../bookingsview/trackbookings/modifybookings-data-interface';
+import { Injectable } from "@angular/core";
+import { AngularFireDatabase } from "angularfire2/database";
+import { Observable, of, concat } from "rxjs";
+import { UserInfoManagerService } from "../../shared/services/user-info-manager.service";
+import {
+  flatMap,
+  map,
+  take,
+  mergeMap,
+  takeLast,
+  filter,
+  concatAll
+} from "rxjs/operators";
+import { TableRow } from "../bookingsview/trackbookings/modifybookings-data-interface";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ModifybookingsRtdbService {
+  constructor(
+    private db: AngularFireDatabase,
+    private userinfo: UserInfoManagerService
+  ) {}
 
-  constructor(private db:AngularFireDatabase,
-              private userinfo:UserInfoManagerService) { }
+  makeRows(): Observable<TableRow[]> {
+    const rows: TableRow[] = [];
+    const obsrows: Observable<TableRow[]> = of(rows);
+    const row: TableRow = {
+      confirmed: "",
+      date: "",
+      title: "",
+      starttime: "",
+      hall: ""
+    };
+    const unconfirmedbase$ = this.userinfo.userauth.firebaseUser.pipe(
+      flatMap(auth =>
+        this.db
+          .list("/root/user-bookings/" + auth.uid + "/unconfirmed")
+          .valueChanges()
+      ),
+      flatMap(values => of(...values)),
+      flatMap(values =>
+        this.db.list("/root/main-bookings/" + values).snapshotChanges()
+      ),
+      flatMap(snap => snap.map(s => s)),
+      map(s => {
+        if (s.key === "title") {
+          row.title = s.payload.val() + "";
+        }
+        if (s.key === "date") {
+          row.date = s.payload.val() + "";
+        }
+        if (s.key === "confirmed") {
+          row.confirmed = s.payload.val() + "";
+        }
 
-  makeRows():Observable<TableRow[]>{
-    var rows:TableRow[]=[];
-    var obsrows:Observable<TableRow[]> = of(rows);
-    var row:TableRow={confirmed:'',date:'',title:'',starttime:'',hall:''};
-    var unconfirmedbase$ = this.userinfo.userauth.firebaseUser
-    .pipe(
-      flatMap(auth=>{return this.db.list('/root/user-bookings/'+auth.uid+'/unconfirmed').valueChanges()}),
-      flatMap(values=>{return of(...values)}),
-      flatMap(values=>{return this.db.list('/root/main-bookings/'+values).snapshotChanges()}),
-      flatMap(snap=>{return snap.map(s=>{return s;})}),
-      map(s=>{
-        if(s.key == 'title'){row.title = s.payload.val()+""}
-        if(s.key == 'date'){row.date = s.payload.val()+""}
-        if(s.key == 'confirmed'){row.confirmed = s.payload.val()+""}
-        
-        return s;}),
-      );
-      
-      var unconfirmedhallfilter = unconfirmedbase$.pipe(
+        return s;
+      })
+    );
+
+    /* var unconfirmedhallfilter = unconfirmedbase$.pipe(
         filter(s=>s.key=='hall-id'),
         flatMap(s=>{return this.db.object('/root/lecture-halls/'+s.payload.val()+'/name').valueChanges()}),
         map(hall=>{
@@ -48,52 +75,49 @@ export class ModifybookingsRtdbService {
           console.log(time);
         })
       );
-      unconfirmedtimefilter.subscribe(data=>{rows.push(row);obsrows = of(rows); console.log(rows)});
-      return obsrows;
-      /* var unconfirmedsource = of(unconfirmedbase$,unconfirmedhallfilter,unconfirmedtimefilter);
+      unconfirmedtimefilter.subscribe(data=>{rows.push(row);obsrows = of(rows); console.log(rows)}); */
+    return obsrows; /* return this.db.list('/root/user-bookings/'+this.userinfo.getUserID()+'/unconfirmed').valueChanges()
+            .pipe(map(value=>console.log(value)), flatMap(value=>this.db.list('/root/main-bookings/'+value+'/').valueChanges() ) ); */
+    /* var unconfirmedsource = of(unconfirmedbase$,unconfirmedhallfilter,unconfirmedtimefilter);
       var unconfirmed = unconfirmedsource.pipe(concatAll());
       unconfirmed.subscribe(data=>{}); */
 
-     /* var confirmedbase$ = this.userinfo.userauth.firebaseUser
+    /* var confirmedbase$ = this.userinfo.userauth.firebaseUser
      .pipe(
        flatMap(auth=>{return this.db.list('/root/user-bookings/'+auth.uid+'/confirmed').valueChanges()}),
        flatMap(values=>{return of(...values)}),
        flatMap(values=>{return this.db.list('/root/main-bookings/'+values).snapshotChanges()}),
        flatMap(snap=>{return snap.map(s=>{return s;})}),
-      ); *///add the above one but for confirmed ones
+      ); */ // add the above one but for confirmed ones
 
-      
-     
-     
-     /* .subscribe(value=>{console.log(value)}); */
+    /* .subscribe(value=>{console.log(value)}); */
     /* return this.userinfo.userauth.firebaseUser
     .pipe(
       flatMap(auth=>{return this.db.list('/root/user-bookings/'+auth.uid+'/unconfirmed').valueChanges()}),
       flatMap(values=>{return of(values)}) );
-     *//* return this.db.list('/root/user-bookings/'+this.userinfo.getUserID()+'/unconfirmed').valueChanges()
-            .pipe(map(value=>console.log(value)), flatMap(value=>this.db.list('/root/main-bookings/'+value+'/').valueChanges() ) ); */
-            /* for (let val of value) { return this.db.list('/root/main-bookings/'+val+'/').valueChanges();  */
-           /*  var a:{key:string;data:{}} = {key:s.payload.key,data:{}}; */
-        /*TODO make this a table row and export the array of rows from this */
-        /* if(s.payload.key =='hall-id'){ */
-          /* this.db.object('/root/lecture-halls/'+s.payload.val()+'/name').valueChanges().pipe(
+     */
+    /* for (let val of value) { return this.db.list('/root/main-bookings/'+val+'/').valueChanges();  */
+    /*  var a:{key:string;data:{}} = {key:s.payload.key,data:{}}; */
+    /*TODO make this a table row and export the array of rows from this */
+    /* if(s.payload.key =='hall-id'){ */
+    /* this.db.object('/root/lecture-halls/'+s.payload.val()+'/name').valueChanges().pipe(
             take(1),
-            takeLast(1)   
+            takeLast(1)
           ).subscribe(data=>console.log(data));
           console.log(a.data) */
-        /* }else if(s.payload.key == 'timeslots'){
+    /* }else if(s.payload.key == 'timeslots'){
           var timeid = Object.values(s.payload.val())[0];
           this.db.object('/root/timeslots/'+timeid+'/start-time').valueChanges().subscribe(data=>console.log(data));
         }else{
           a.data = s.payload.val();
         } */
-        //ugly solution
-        /* while(a.data == {}){
+    // ugly solution
+    /* while(a.data == {}){
         }
         rows.push(a); */
   }
 }
-/* 
+/*
 merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),

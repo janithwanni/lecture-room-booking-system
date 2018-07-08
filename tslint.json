@@ -139,8 +139,12 @@
     "component-class-suffix": true,
     "directive-class-suffix": true,
     "extends": [
+      "prettier",
       "tslint:latest",
       "tslint-config-prettier"
+    ],
+    "plugins":[
+      "prettier"
     ]
   }
 }
