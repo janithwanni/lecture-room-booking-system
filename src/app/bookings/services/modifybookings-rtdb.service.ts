@@ -15,7 +15,7 @@ export class ModifybookingsRtdbService {
 
   makeRows():Observable<TableRow[]>{
     var rows:TableRow[]=[];
-    
+    var obsrows:Observable<TableRow[]> = of(rows);
     var row:TableRow={confirmed:'',date:'',title:'',starttime:'',hall:''};
     var unconfirmedbase$ = this.userinfo.userauth.firebaseUser
     .pipe(
@@ -29,11 +29,9 @@ export class ModifybookingsRtdbService {
         if(s.key == 'confirmed'){row.confirmed = s.payload.val()+""}
         
         return s;}),
-      flatMap(s=>{console.log(s.payload.val());return this.db.object('/root/lecture-halls/'+s.payload.val()+'/name').valueChanges()}),
-      map(hall=>{if(hall != null){console.log(hall)}})
-      ).subscribe(()=>{});
+      );
       
-      /* var unconfirmedhallfilter = unconfirmedbase$.pipe(
+      var unconfirmedhallfilter = unconfirmedbase$.pipe(
         filter(s=>s.key=='hall-id'),
         flatMap(s=>{return this.db.object('/root/lecture-halls/'+s.payload.val()+'/name').valueChanges()}),
         map(hall=>{
@@ -49,9 +47,8 @@ export class ModifybookingsRtdbService {
           row.starttime = time+"";
           console.log(time);
         })
-      ); */
-      var obsrows:Observable<TableRow[]> = of([]);
-      //unconfirmedtimefilter.subscribe(data=>{rows.push(row);obsrows = of(rows); console.log(rows)});
+      );
+      unconfirmedtimefilter.subscribe(data=>{rows.push(row);obsrows = of(rows); console.log(rows)});
       return obsrows;
       /* var unconfirmedsource = of(unconfirmedbase$,unconfirmedhallfilter,unconfirmedtimefilter);
       var unconfirmed = unconfirmedsource.pipe(concatAll());
