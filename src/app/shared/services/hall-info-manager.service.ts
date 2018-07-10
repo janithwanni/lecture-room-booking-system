@@ -43,24 +43,7 @@ export class HallInfoManagerService {
         .list("/root/time-bookings/" + year + "/" + month + "/" + day)
         .valueChanges()
         .pipe(
-          isEmpty(),
-          flatMap(b => {
-            if (!b) {
-              return this.db
-                .list("/root/time-bookings/" + year + "/" + month + "/" + day)
-                .valueChanges()
-                .pipe(count());
-            } else {
-              return this.getTotalNumberofHalls();
-            }
-          }),
-          flatMap(c => {
-            console.log(c);
-            return concat(of(c), this.getTotalNumberofHalls());
-          }),
-          scan((x, y) => {
-            return Math.abs(x - y);
-          })
+          
         );
     } else {
       return null;
@@ -81,3 +64,24 @@ export class HallInfoManagerService {
     return items;
   }
 }
+
+/*
+        isEmpty(),
+          flatMap(b => {
+            if (!b) {
+              return this.db
+                .list("/root/time-bookings/" + year + "/" + month + "/" + day)
+                .valueChanges()
+                .pipe(count());
+            } else {
+              return this.getTotalNumberofHalls();
+            }
+          }),
+          flatMap(c => {
+            console.log(c);
+            return concat(of(c), this.getTotalNumberofHalls());
+          }),
+          scan((x, y) => {
+            return Math.abs(x - y);
+          })
+*/
