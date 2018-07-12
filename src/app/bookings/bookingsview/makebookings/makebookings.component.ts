@@ -23,13 +23,16 @@ export class MakebookingsComponent implements OnInit {
   endTime: Observable<string[]>;
   startTime: Observable<string[]>;
   isFree: Observable<boolean> = of(false);
+  studOrDeptOptions: string[] = ["Student Body", "Department"];
 
   @Input() hall: string;
   @Input() date: Date;
-  @Input() startingTime: string[];
-  @Input() endingTime: string[];
+  @Input() startingTime: string;
+  @Input() endingTime: string;
   @Input() title: string;
   @Input() description: string;
+  @Input() by: string;
+  @Input() studentORdept: string;
 
   constructor(
     private hallinfo: HallInfoManagerService,
@@ -37,11 +40,18 @@ export class MakebookingsComponent implements OnInit {
     private makebookings: MakeBookingRtdbService
   ) {
     this.items = hallinfo.getHalls();
+
     this.startTime = this.timeslotmanager.generateStartTimes();
     this.endTime = this.timeslotmanager.generateEndTimes();
-    this.endTime.subscribe(data => {
-      console.log(data);
-    });
+    const d = new Date();
+    this.hallinfo.getBookingsInRange(
+      d.getFullYear() + "",
+      d.getMonth() + "",
+      d.getDate() + "",
+      this.hall,
+      this.startingTime,
+      this.endingTime
+    );
   }
 
   ngOnInit() {}
@@ -50,12 +60,33 @@ export class MakebookingsComponent implements OnInit {
     this.date = event.target.value;
   }
   makeBookingClick(event) {
-    /*TODO add the validation stuff*/
-    /* if(this.hall != null && this.date != null && this.timeSlot != null && this.title != null && this.description != null){
+    if (
+      this.hall != null &&
+      this.date != null &&
+      this.startingTime != null &&
+      this.endingTime != null &&
+      this.title != null &&
+      this.description != null &&
+      this.by != null &&
+      this.studentORdept != null
+    ) {
+      this.makebookings.makeBookingsRecord(
+        this.hall,
+        this.date,
+        this.startingTime,
+        this.endingTime,
+        this.by,
+        this.studentORdept,
+        this.title,
+        this.description
+      );
+    }
+  }
+}
+/*TODO add the validation stuff*/
+/* if(this.hall != null && this.date != null && this.timeSlot != null && this.title != null && this.description != null){
       this.makebookings.makeBookingsRecord(this.hall,this.date,this.timeSlot,this.title,this.description);
     }
     else{
       alert("Fill the rest of the contents");
     } */
-  }
-}

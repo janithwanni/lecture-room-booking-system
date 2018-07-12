@@ -10,41 +10,24 @@ import {
   scan,
   map
 } from "rxjs/operators";
+import { TimeslotManagerService } from "./timeslot-manager.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class HallInfoManagerService {
-  constructor(private db: AngularFireDatabase) {}
-
-  isCampusTime(): boolean {
-    const currentDate = new Date();
-    if (currentDate.getHours() >= 8 && currentDate.getHours() <= 18) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  getTimeSlot(): string {
-    if (this.isCampusTime()) {
-      var currentDate = new Date();
-      var firstChar = currentDate.getHours() - 8;
-      var secondChar = currentDate.getMinutes() <= 30 ? 0 : 1;
-      return "time-" + firstChar + secondChar + "";
-    } else {
-      return null;
-    }
-  }
+  constructor(
+    private db: AngularFireDatabase,
+    private timeslot: TimeslotManagerService
+  ) {}
 
   getFreeHalls(year: string, month: string, day: string): Observable<any> {
     //retrieves the number of halls free right now at the given day
-    if (this.isCampusTime()) {
+    if (this.timeslot.isCampusTime()) {
       return this.db
         .list("/root/time-bookings/" + year + "/" + month + "/" + day)
         .valueChanges()
-        .pipe(
-          
-        );
+        .pipe();
     } else {
       return null;
     }
@@ -63,8 +46,36 @@ export class HallInfoManagerService {
       .valueChanges();
     return items;
   }
-}
 
+  getBookingsInRange(
+    year: string,
+    month: string,
+    day: string,
+    hall: string,
+    starttime: string,
+    endtime: string
+  ) {
+    this.db
+      .list(
+        "/root/confirmed-bookings/" +
+          year +
+          "/" +
+          month +
+          "/" +
+          day +
+          "/lct-hall-" +
+          hall
+      )
+      .valueChanges()
+      .pipe(
+        flatMap(h => {
+          console.log(h);
+          return h;
+        })
+      )
+      .subscribe(data => {});
+  }
+}
 /*
         isEmpty(),
           flatMap(b => {

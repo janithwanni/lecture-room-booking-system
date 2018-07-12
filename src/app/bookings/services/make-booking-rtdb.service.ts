@@ -11,37 +11,62 @@ export class MakeBookingRtdbService {
     private userinfo: UserInfoManagerService
   ) {}
   /*
-  @Input() hall:string;
-  @Input() date:Date;
-  @Input() timeSlot:string[];
-  @Input() title:string;
-  @Input() description:string;
+  @Input() hall: string;
+  @Input() date: Date;
+  @Input() startingTime: string;
+  @Input() endingTime: string;
+  @Input() title: string;
+  @Input() description: string;
+  @Input() by: string;
+  @Input() studentORdept: string;
   */
-  /*
- "main-bookings":{
-      "bkn-1":{
-        "hall-id":"lct-hall-1",
-        "timeslots":{
-          "push-id1":"time-slt-1",
-          "push-id2":"time-slt-2"
-        },
-        "user-id":"5KZKcCq8ZjWyCrZKoxQJAuWlOFa2",
-        "date":"YYYY-MM-DD",
-        "title":"title",
-        "description":"description",
-        "confirmed":0,
-        "timestamp":21342352
-      }
-    }
- */
+
   makeBookingsRecord(
     hall: string,
     date: Date,
-    timeSlot: string[],
-    title: string,
-    description: string
+    startingTime: string,
+    endingTime: string,
+    by: string = " ",
+    studentORdept: string = "Student Body",
+    title: string = " ",
+    description: string = " "
   ) {
-    const push = {
+    const mainPush = {
+      "hall-id": "lct-hall-" + hall,
+      "user-id": this.userinfo.getUserID(),
+      date: date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate(),
+      title: title,
+      description: description,
+      confirmed: 0,
+      "start-time": startingTime,
+      "end-time": endingTime,
+      by: by,
+      isStudent: studentORdept == "Student Body" ? 1 : 0,
+      isDepartment: studentORdept == "Department" ? 1 : 0
+    };
+    const newbookingref = this.db.list("/root/main-bookings").push(mainPush);
+    const tentativePush = {
+      id: newbookingref.key,
+      "start-time": startingTime,
+      "end-time": endingTime
+    };
+    this.db
+      .list(
+        "/root/tentative-bookings/" +
+          date.getFullYear() +
+          "/" +
+          date.getMonth() +
+          "/" +
+          date.getDate() +
+          "/lct-hall-" +
+          hall +
+          "/"
+      )
+      .push(tentativePush);
+  }
+}
+
+/* const push = {
       "hall-id": "lct-hall-" + hall,
       "user-id": this.userinfo.getUserID(),
       date: date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate(),
@@ -87,6 +112,4 @@ export class MakeBookingRtdbService {
     }
     this.db
       .list("/root/user-bookings/" + this.userinfo.getUserID() + "/unconfirmed")
-      .push(newbookingref.key);
-  }
-}
+      .push(newbookingref.key); */

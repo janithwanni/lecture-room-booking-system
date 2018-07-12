@@ -48,6 +48,26 @@
         style="resize: none"></textarea>
     </mat-form-field>
     <br/>
+
+    <mat-divider [inset]="true"></mat-divider>
+    <br/>
+
+    <h4 class="mat-h4">Request Information</h4>
+    <mat-form-field>
+      <input [(ngModel)]="by" name="by" matInput placeholder="Name of requesting person?" />
+    </mat-form-field>
+
+    <br/>
+
+    <mat-radio-group style="display: inline-flex;flex-direction: column;" [(ngModel)]="studORdept" name="studORdept">
+      <mat-radio-button *ngFor="let option of studOrDeptOptions" [value]="option">
+        {{option}}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <br/>
+    <mat-divider [inset]="true"></mat-divider>
+    <br/>
     <button mat-raised-button color="primary" (click)="makeBookingClick();makebookingform.reset();"> Make Booking </button>
   </div>
 </form>

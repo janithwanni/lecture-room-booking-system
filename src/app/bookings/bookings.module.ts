@@ -26,7 +26,7 @@ import {
   MatSortModule
 } from "@angular/material";
 import { MatBadgeModule } from "@angular/material/badge";
-
+import { MatRadioModule } from "@angular/material/radio";
 /*components imported */
 /* import { StatusviewComponent } from './statusview/statusview.component'; */
 import { StatusatglanceComponent } from "./statusview/statusatglance/statusatglance.component";
@@ -49,6 +49,7 @@ import { TrackbookingsComponent } from "./bookingsview/trackbookings/trackbookin
     /*routing module */
     BookingsRoutingModule,
     /*material imports */
+    MatRadioModule,
     CdkTableModule,
     CdkTreeModule,
     MatGridListModule,

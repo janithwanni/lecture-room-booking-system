@@ -15,6 +15,26 @@ export class TimeslotManagerService {
   startTimes: string[] = [];
   endTimes: string[] = [];
 
+  isCampusTime(): boolean {
+    const currentDate = new Date();
+    if (currentDate.getHours() >= 8 && currentDate.getHours() <= 18) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getTimeSlot(): string {
+    if (this.isCampusTime()) {
+      var currentDate = new Date();
+      var firstChar = currentDate.getHours() - 8;
+      var secondChar = currentDate.getMinutes() <= 30 ? 0 : 1;
+      return "time-" + firstChar + secondChar + "";
+    } else {
+      return null;
+    }
+  }
+
   generateStartTimes(): Observable<any> {
     /* let obsStartTimes:Observable<string[]>; */
     return this.db
