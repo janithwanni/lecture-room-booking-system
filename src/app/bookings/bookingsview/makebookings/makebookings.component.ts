@@ -54,9 +54,10 @@ export class MakebookingsComponent implements OnInit {
   }
 
   searchBookings() {
+    const month = this.date.getMonth() + 1;
     this.hallinfo.getBookingsInRange(
       this.date.getFullYear() + "",
-      this.date.getMonth() + "",
+      month + "",
       this.date.getDate() + "",
       this.hall,
       this.startingTime,

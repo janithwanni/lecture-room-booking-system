@@ -31,10 +31,12 @@ export class MakeBookingRtdbService {
     title: string = " ",
     description: string = " "
   ) {
+    console.log(date);
     const mainPush = {
       "hall-id": "lct-hall-" + (hall + 1),
       "user-id": this.userinfo.getUserID(),
-      date: date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate(),
+      date:
+        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate(),
       title: title,
       description: description,
       confirmed: 0,
@@ -55,7 +57,7 @@ export class MakeBookingRtdbService {
         "/root/tentative-bookings/" +
           date.getFullYear() +
           "/" +
-          date.getMonth() +
+          (date.getMonth() + 1) +
           "/" +
           date.getDate() +
           "/lct-hall-" +

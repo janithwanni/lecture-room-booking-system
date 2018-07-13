@@ -14,12 +14,12 @@ export class TimeslotManagerService {
 
   generateStartTimes(): Observable<any> {
     return this.db
-      .list("/root/timeslots")
+      .list("/root/timeids")
       .valueChanges()
       .pipe(
         flatMap(times => {
-          for (let time of times) {
-            this.startTimes.push(time["start-time"]);
+          for (let time of times.slice(0, times.length - 1)) {
+            this.startTimes.push(time + "");
           }
           return of(this.startTimes);
         })
@@ -28,12 +28,12 @@ export class TimeslotManagerService {
 
   generateEndTimes(): Observable<string[]> {
     return this.db
-      .list("/root/timeslots")
+      .list("/root/timeids")
       .valueChanges()
       .pipe(
         flatMap(times => {
-          for (let time of times) {
-            this.endTimes.push(time["end-time"]);
+          for (let time of times.slice(1, times.length)) {
+            this.endTimes.push(time + "");
           }
           return of(this.endTimes);
         })

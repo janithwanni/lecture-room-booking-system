@@ -57,24 +57,26 @@ export class HallInfoManagerService {
       .valueChanges()
       .pipe(
         flatMap(h => {
-          console.log(h);
           for (let hall of h) {
-            console.log(
-              "hall-start-time",
-              +hall["start-time"].slice(
-                hall["start-time"].length - 2,
-                hall["start-time"].length
-              ),
-              "\nhall-end-time",
-              +hall["end-time"].slice(
-                hall["end-time"].length - 2,
-                hall["end-time"].length
-              ),
-              "\nrequest-start-time",
-              starttime,
-              "\nrequest-end-time",
-              endtime
+            let hallStartTime = +hall["start-time"].slice(
+              hall["start-time"].length - 2,
+              hall["start-time"].length
             );
+            let hallEndTime = +hall["end-time"].slice(
+              hall["end-time"].length - 2,
+              hall["end-time"].length
+            );
+            if (
+              (hallStartTime > +starttime && hallStartTime < +endtime) ||
+              (hallEndTime > +starttime && hallEndTime < +endtime)
+            ) {
+              this.db
+                .object("/root/main-bookings/" + hall["id"] + "/description")
+                .valueChanges()
+                .subscribe(data => {
+                  console.log(data);
+                });
+            }
           }
 
           return h;
