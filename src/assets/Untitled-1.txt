@@ -1,0 +1,45 @@
+validate if bookings exists on that day
+on this day during this time which halls are free
+start time end time drop downa
+first confirm gets the first booking 
+multiple confirms can exist on the same date
+optional if the student is putting it or a department is
+who books it society or lecturer
+user levels
+lectuer
+student
+officer
+admin
+dialog on confirmation
+
+main-bookings:
+    "push-id":
+        title:
+        description
+        by
+        isstudentbody
+        isdepartment
+        starttime
+        endtime
+        date
+        hall
+        confirmed
+        archived
+confirmed-bookings:
+    "year"
+        "month"
+            "day"
+                "hall"
+                    "push id"
+                        id:"bkngid"
+                        start:"starttime"
+                        end:"endtime"
+tentative-bookings:
+    "year"
+        "month"
+            "day"
+                "hall"
+                    "push id"
+                        id:"bkngid"
+                        start:"starttime"
+                        end:"endtime"

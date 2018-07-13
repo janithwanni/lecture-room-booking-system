@@ -21,18 +21,6 @@ export class HallInfoManagerService {
     private timeslot: TimeslotManagerService
   ) {}
 
-  getFreeHalls(year: string, month: string, day: string): Observable<any> {
-    //retrieves the number of halls free right now at the given day
-    if (this.timeslot.isCampusTime()) {
-      return this.db
-        .list("/root/time-bookings/" + year + "/" + month + "/" + day)
-        .valueChanges()
-        .pipe();
-    } else {
-      return null;
-    }
-  }
-
   getTotalNumberofHalls(): Observable<number> {
     return this.db
       .list("/root/lecture-halls/")
@@ -95,23 +83,36 @@ export class HallInfoManagerService {
       .subscribe(data => {});
   }
 }
+/*  
+getFreeHalls(year: string, month: string, day: string): Observable<any> {
+  //retrieves the number of halls free right now at the given day
+  if (this.timeslot.isCampusTime()) {
+    return this.db
+      .list("/root/time-bookings/" + year + "/" + month + "/" + day)
+      .valueChanges()
+      .pipe();
+  } else {
+    return null;
+  }
+} 
+*/
 /*
-        isEmpty(),
-          flatMap(b => {
-            if (!b) {
-              return this.db
-                .list("/root/time-bookings/" + year + "/" + month + "/" + day)
-                .valueChanges()
-                .pipe(count());
-            } else {
-              return this.getTotalNumberofHalls();
-            }
-          }),
-          flatMap(c => {
-            console.log(c);
-            return concat(of(c), this.getTotalNumberofHalls());
-          }),
-          scan((x, y) => {
-            return Math.abs(x - y);
-          })
+  isEmpty(),
+    flatMap(b => {
+      if (!b) {
+        return this.db
+          .list("/root/time-bookings/" + year + "/" + month + "/" + day)
+          .valueChanges()
+          .pipe(count());
+      } else {
+        return this.getTotalNumberofHalls();
+      }
+    }),
+    flatMap(c => {
+      console.log(c);
+      return concat(of(c), this.getTotalNumberofHalls());
+    }),
+    scan((x, y) => {
+      return Math.abs(x - y);
+    })
 */

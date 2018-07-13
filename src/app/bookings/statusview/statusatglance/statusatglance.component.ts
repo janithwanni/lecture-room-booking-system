@@ -15,10 +15,10 @@ export class StatusatglanceComponent implements OnInit {
   } = { now: of(0), tommorrow: of(0), nextweek: of(0) };
 
   constructor(private hallinfo: HallInfoManagerService) {
-    this.setupComponent();
+    /* this.setupComponent(); */
   }
 
-  setupComponent() {
+  /*  setupComponent() {
     const currDate = new Date();
     this.status.now = this.hallinfo.getFreeHalls(
       currDate.getFullYear() + "",
@@ -40,6 +40,6 @@ export class StatusatglanceComponent implements OnInit {
     this.status.now.subscribe(data => {
       console.log(data);
     });
-  }
+  } */
   ngOnInit() {}
 }
