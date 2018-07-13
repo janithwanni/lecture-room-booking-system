@@ -1,0 +1,143 @@
+{
+  "root": {
+    "lecture-halls": {
+      "lct-hall-1": {
+        "name": "NFC3"
+      },
+      "lct-hall-2": {
+        "name": "NFC6"
+      },
+      "lct-hall-3": {
+        "name": "NFC2"
+      },
+      "lct-hall-4": {
+        "name": "NFC1"
+      },
+      "lct-hall-5": {
+        "name": "S1"
+      }
+    },
+    "timeslots": {
+      "time-00": {
+        "end-time": "0830",
+        "start-time": "0800"
+      },
+      "time-01": {
+        "end-time": "0900",
+        "start-time": "0830"
+      },
+      "time-02": {
+        "end-time": "0930",
+        "start-time": "0900"
+      },
+      "time-03": {
+        "end-time": "1000",
+        "start-time": "0930"
+      },
+      "time-04": {
+        "end-time": "1030",
+        "start-time": "1000"
+      },
+      "time-05": {
+        "end-time": "1100",
+        "start-time": "1030"
+      },
+      "time-06": {
+        "end-time": "1130",
+        "start-time": "1100"
+      },
+      "time-07": {
+        "end-time": "1200",
+        "start-time": "1130"
+      },
+      "time-08": {
+        "end-time": "1230",
+        "start-time": "1200"
+      },
+      "time-09": {
+        "end-time": "1300",
+        "start-time": "1230"
+      },
+      "time-10": {
+        "end-time": "1330",
+        "start-time": "1300"
+      },
+      "time-11": {
+        "end-time": "1400",
+        "start-time": "1330"
+      },
+      "time-12": {
+        "end-time": "1430",
+        "start-time": "1400"
+      },
+      "time-13": {
+        "end-time": "1500",
+        "start-time": "1430"
+      },
+      "time-14": {
+        "end-time": "1530",
+        "start-time": "1500"
+      },
+      "time-15": {
+        "end-time": "1600",
+        "start-time": "1530"
+      },
+      "time-16": {
+        "end-time": "1630",
+        "start-time": "1600"
+      },
+      "time-17": {
+        "end-time": "1700",
+        "start-time": "1630"
+      },
+      "time-18": {
+        "end-time": "1730",
+        "start-time": "1700"
+      },
+      "time-19": {
+        "end-time": "1800",
+        "start-time": "1730"
+      }
+    },
+    "users": {
+      "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2": {
+        "email": "r.t.doram@gmail.com",
+        "level": "admin",
+        "name": "Janith Wanniarachchi"
+      },
+      "CihbWXHUTIZVCCKG39364fKEDUn1": {
+        "email": "janithcwanni@gmail.com",
+        "level": "officer",
+        "name": "Chandrasiri Wanniarachchi"
+      },
+      "HLq1mbBRichFWHLF18IxwB2XVZg2": {
+        "email": "student@sjp.ac.lk",
+        "level": "student",
+        "name": "Namal Gunapala"
+      }
+    },
+    "timeids": {
+      "time-00": "0800",
+      "time-01": "0830",
+      "time-02": "0900",
+      "time-03": "0930",
+      "time-04": "1000",
+      "time-05": "1030",
+      "time-06": "1100",
+      "time-07": "1130",
+      "time-08": "1200",
+      "time-09": "1230",
+      "time-10": "1300",
+      "time-11": "1330",
+      "time-12": "1400",
+      "time-13": "1430",
+      "time-14": "1500",
+      "time-15": "1530",
+      "time-16": "1600",
+      "time-17": "1630",
+      "time-18": "1700",
+      "time-19": "1730",
+      "time-20": "1800"
+    }
+  }
+}

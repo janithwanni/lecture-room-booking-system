@@ -37,6 +37,9 @@
   <br/>
   <mat-divider [inset]="true"></mat-divider>
   <br/>
+  <div *ngIf="isNotFree | async">
+    <button mat-raised-button color="primary" (click)="searchBookings();"> Search Booking </button>
+  </div>
   <div *ngIf="isFree | async">
     <h4 class="mat-h4">Title and Description of event</h4>
     <mat-form-field>
@@ -59,7 +62,7 @@
 
     <br/>
 
-    <mat-radio-group style="display: inline-flex;flex-direction: column;" [(ngModel)]="studORdept" name="studORdept">
+    <mat-radio-group style="display: inline-flex;flex-direction: column;" [(ngModel)]="studentORdept" name="studentORdept">
       <mat-radio-button *ngFor="let option of studOrDeptOptions" [value]="option">
         {{option}}
       </mat-radio-button>

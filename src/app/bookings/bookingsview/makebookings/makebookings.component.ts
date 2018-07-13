@@ -5,6 +5,7 @@ import { MatDatepickerInputEvent } from "@angular/material/datepicker";
 import { AngularFireDatabase } from "angularfire2/database";
 import { MakeBookingRtdbService } from "../../services/make-booking-rtdb.service";
 import { TimeslotManagerService } from "../../../shared/services/timeslot-manager.service";
+import { NgForm } from "@angular/forms";
 
 @Component({
   selector: "app-makebookings",
@@ -23,6 +24,7 @@ export class MakebookingsComponent implements OnInit {
   endTime: Observable<string[]>;
   startTime: Observable<string[]>;
   isFree: Observable<boolean> = of(false);
+  isNotFree: Observable<boolean> = of(true);
   studOrDeptOptions: string[] = ["Student Body", "Department"];
 
   @Input() hall: string;
@@ -43,21 +45,23 @@ export class MakebookingsComponent implements OnInit {
 
     this.startTime = this.timeslotmanager.generateStartTimes();
     this.endTime = this.timeslotmanager.generateEndTimes();
-    const d = new Date();
-    this.hallinfo.getBookingsInRange(
-      d.getFullYear() + "",
-      d.getMonth() + "",
-      d.getDate() + "",
-      this.hall,
-      this.startingTime,
-      this.endingTime
-    );
   }
 
   ngOnInit() {}
 
   pickDate(type: string, event: MatDatepickerInputEvent<Date>) {
     this.date = event.target.value;
+  }
+
+  searchBookings() {
+    this.hallinfo.getBookingsInRange(
+      this.date.getFullYear() + "",
+      this.date.getMonth() + "",
+      this.date.getDate() + "",
+      this.hall,
+      this.startingTime,
+      this.endingTime
+    );
   }
   makeBookingClick(event) {
     if (
@@ -70,7 +74,26 @@ export class MakebookingsComponent implements OnInit {
       this.by != null &&
       this.studentORdept != null
     ) {
+      const startingTimeText =
+        +this.startingTime < 10
+          ? "time-0" + this.startingTime
+          : "time-" + this.startingTime;
+      const endTimeText =
+        +this.endingTime < 10
+          ? "time-0" + this.endingTime
+          : "time-" + this.endingTime;
       this.makebookings.makeBookingsRecord(
+        this.hall,
+        this.date,
+        startingTimeText,
+        endTimeText,
+        this.by,
+        this.studentORdept,
+        this.title,
+        this.description
+      );
+    } else {
+      console.log(
         this.hall,
         this.date,
         this.startingTime,

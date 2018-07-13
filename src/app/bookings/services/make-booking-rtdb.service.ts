@@ -32,7 +32,7 @@ export class MakeBookingRtdbService {
     description: string = " "
   ) {
     const mainPush = {
-      "hall-id": "lct-hall-" + hall,
+      "hall-id": "lct-hall-" + (hall + 1),
       "user-id": this.userinfo.getUserID(),
       date: date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate(),
       title: title,
@@ -59,7 +59,7 @@ export class MakeBookingRtdbService {
           "/" +
           date.getDate() +
           "/lct-hall-" +
-          hall +
+          (hall + 1) +
           "/"
       )
       .push(tentativePush);
