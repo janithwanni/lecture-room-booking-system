@@ -21,13 +21,6 @@ export class HallInfoManagerService {
     private timeslot: TimeslotManagerService
   ) {}
 
-  getTotalNumberofHalls(): Observable<number> {
-    return this.db
-      .list("/root/lecture-halls/")
-      .valueChanges()
-      .pipe(count());
-  }
-
   getHalls(): Observable<any> {
     var items: Observable<any> = this.db
       .list("/root/lecture-halls")
