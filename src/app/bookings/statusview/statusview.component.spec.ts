@@ -1,19 +1,19 @@
 
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShowbookingsComponent } from './showbookings.component';
+import { StatusviewComponent } from './statusview.component';
 
-describe('ShowbookingsComponent', () => {
-  let component: ShowbookingsComponent;
-  let fixture: ComponentFixture<ShowbookingsComponent>;
+describe('StatusviewComponent', () => {
+  let component: StatusviewComponent;
+  let fixture: ComponentFixture<StatusviewComponent>;
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShowbookingsComponent ]
+      declarations: [ StatusviewComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ShowbookingsComponent);
+    fixture = TestBed.createComponent(StatusviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
