@@ -28,7 +28,7 @@
       <mat-option *ngFor="let start of startTime | async;let i = index" [value]="i">{{start}}</mat-option>
     </mat-select>
   </mat-form-field>
-
+  <br/>
   <mat-form-field>
     <mat-select placeholder="Ending Time" [(ngModel)]="endingTime" name="endingTime">
       <mat-option *ngFor="let end of endTime | async;let i = index" [value]="i">{{end}}</mat-option>

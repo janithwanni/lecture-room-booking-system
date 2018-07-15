@@ -10,15 +10,13 @@ export interface State {
   hallList: Hall[];
   displayBookingList: Booking[];
   timeList: Time[];
-  isLoggedin: boolean;
 }
 
 const initialState: State = {
   currentUser: { uid: " ", email: " ", level: " ", username: " " },
   hallList: [],
   displayBookingList: [],
-  timeList: [],
-  isLoggedin: false
+  timeList: []
 };
 
 export class DataStore {

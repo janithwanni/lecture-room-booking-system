@@ -1,6 +1,7 @@
 import { StoreEvent } from "./store-event";
 import { State } from "./data-store";
 import { User } from "./user";
+import { Booking } from "./booking";
 
 export class SetCurrentUser extends StoreEvent {
   constructor(payload: User) {
@@ -14,8 +15,23 @@ export class SetCurrentUser extends StoreEvent {
       currentUser: this.payload,
       hallList: [],
       displayBookingList: [],
-      timeList: [],
-      isLoggedin: false
+      timeList: []
+    };
+  }
+}
+export class PushBookingtoList extends StoreEvent {
+  constructor(payload: Booking[]) {
+    super(payload);
+    console.log(payload);
+  }
+
+  getNewState(state: State) {
+    return {
+      ...state,
+      currentUser: state.currentUser,
+      hallList: state.hallList,
+      displayBookingList: this.payload,
+      timeList: state.timeList
     };
   }
 }

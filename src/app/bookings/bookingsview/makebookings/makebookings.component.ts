@@ -4,6 +4,7 @@ import { Observable, of } from "rxjs";
 import { MatDatepickerInputEvent } from "@angular/material/datepicker";
 import { MakeBookingRtdbService } from "../../services/make-booking-rtdb.service";
 import { TimeslotManagerService } from "../../../shared/services/timeslot-manager.service";
+import { SearchbookingsRtdbService } from "../../services/searchbookings-rtdb.service";
 
 @Component({
   selector: "app-makebookings",
@@ -21,10 +22,10 @@ export class MakebookingsComponent implements OnInit {
   items: Observable<any>;
   endTime: Observable<string[]>;
   startTime: Observable<string[]>;
-  isFree: Observable<boolean> = of(false);
-  isNotFree: Observable<boolean> = of(true);
-  studOrDeptOptions: string[] = ["Student Body", "Department"];
 
+  studOrDeptOptions: string[] = ["Student Body", "Department"];
+  isFree = of(false);
+  isNotFree = of(true);
   @Input() hall: string;
   @Input() date: Date;
   @Input() startingTime: string;
@@ -37,7 +38,8 @@ export class MakebookingsComponent implements OnInit {
   constructor(
     private hallinfo: HallInfoManagerService,
     private timeslotmanager: TimeslotManagerService,
-    private makebookings: MakeBookingRtdbService
+    private makebookings: MakeBookingRtdbService,
+    private searchbookings: SearchbookingsRtdbService
   ) {
     this.items = hallinfo.getHalls();
 
@@ -53,7 +55,7 @@ export class MakebookingsComponent implements OnInit {
 
   searchBookings() {
     const month = this.date.getMonth() + 1;
-    this.hallinfo.getBookingsInRange(
+    const list = this.searchbookings.getBookingsInRange(
       this.date.getFullYear() + "",
       month + "",
       this.date.getDate() + "",

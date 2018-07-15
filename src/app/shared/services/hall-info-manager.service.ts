@@ -19,56 +19,6 @@ export class HallInfoManagerService {
       .valueChanges();
     return items;
   }
-
-  getBookingsInRange(
-    year: string,
-    month: string,
-    day: string,
-    hall: string,
-    starttime: string,
-    endtime: string
-  ) {
-    this.db
-      .list(
-        "/root/tentative-bookings/" +
-          year +
-          "/" +
-          month +
-          "/" +
-          day +
-          "/lct-hall-" +
-          (hall + 1)
-      )
-      .valueChanges()
-      .pipe(
-        flatMap(h => {
-          for (let hall of h) {
-            let hallStartTime = +hall["start-time"].slice(
-              hall["start-time"].length - 2,
-              hall["start-time"].length
-            );
-            let hallEndTime = +hall["end-time"].slice(
-              hall["end-time"].length - 2,
-              hall["end-time"].length
-            );
-            if (
-              (hallStartTime > +starttime && hallStartTime < +endtime) ||
-              (hallEndTime > +starttime && hallEndTime < +endtime)
-            ) {
-              this.db
-                .object("/root/main-bookings/" + hall["id"] + "/description")
-                .valueChanges()
-                .subscribe(data => {
-                  console.log(data);
-                });
-            }
-          }
-
-          return h;
-        })
-      )
-      .subscribe(data => {});
-  }
 }
 /*  
 getFreeHalls(year: string, month: string, day: string): Observable<any> {
