@@ -1,15 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "angularfire2/database";
 import { Observable, of, concat } from "rxjs";
-import {
-  take,
-  takeLast,
-  count,
-  isEmpty,
-  flatMap,
-  scan,
-  map
-} from "rxjs/operators";
+import { flatMap } from "rxjs/operators";
 import { TimeslotManagerService } from "./timeslot-manager.service";
 
 @Injectable({

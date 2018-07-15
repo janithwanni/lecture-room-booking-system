@@ -3,7 +3,6 @@ import { Observable } from "rxjs";
 import { AngularFireAuth } from "angularfire2/auth";
 import { Router } from "@angular/router";
 import { DatastoreManagerService } from "../../shared/services/datastore-manager.service";
-import { User } from "../../shared/models/user";
 import { AngularFireDatabase } from "angularfire2/database";
 @Injectable({
   providedIn: "root"

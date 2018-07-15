@@ -2,10 +2,8 @@ import { Component, OnInit, Input } from "@angular/core";
 import { HallInfoManagerService } from "../../../shared/services/hall-info-manager.service";
 import { Observable, of } from "rxjs";
 import { MatDatepickerInputEvent } from "@angular/material/datepicker";
-import { AngularFireDatabase } from "angularfire2/database";
 import { MakeBookingRtdbService } from "../../services/make-booking-rtdb.service";
 import { TimeslotManagerService } from "../../../shared/services/timeslot-manager.service";
-import { NgForm } from "@angular/forms";
 
 @Component({
   selector: "app-makebookings",

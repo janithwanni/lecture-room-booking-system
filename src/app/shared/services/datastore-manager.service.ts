@@ -3,7 +3,6 @@ import { DataStore } from "../models/data-store";
 import { User } from "../models/user";
 import { SetCurrentUser } from "../models/event-list";
 import { flatMap } from "rxjs/operators";
-import { State } from "../models/data-store";
 import { of, Observable } from "rxjs";
 
 @Injectable({
