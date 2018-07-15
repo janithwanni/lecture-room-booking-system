@@ -1,35 +1,29 @@
 import { Injectable } from "@angular/core";
 import { DataStore } from "../models/data-store";
 import { User } from "../models/user";
+import { SetCurrentUser } from "../models/event-list";
+import { flatMap } from "rxjs/operators";
+import { State } from "../models/data-store";
+import { of, Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root"
 })
 export class DatastoreManagerService {
-  dataStore: DataStore = {
-    currentUser: null,
-    isLoggedin: false,
-    bookingList: [],
-    hallList: [],
-    timeList: []
-  };
-  constructor() {}
-
-  setCurrentUser(user: User): void {
-    console.log("setting new user");
-    console.log(user);
-    this.dataStore.currentUser = user;
+  constructor(private store: DataStore) {
+    console.log("in constructor of datastoremanager service");
   }
 
-  getCurrentUser(): User {
-    return this.dataStore.currentUser;
+  setCurrentUser(user: User) {
+    console.log("calling setcurrentuser function in datastore manager service");
+    this.store.dispatch(new SetCurrentUser(user));
   }
 
-  setIsLoggedIn(value: boolean) {
-    this.dataStore.isLoggedin = value;
-  }
-
-  getIsLoggedIn(): boolean {
-    return this.dataStore.isLoggedin;
+  getCurrentUser(): Observable<User> {
+    return this.store.observe().pipe(
+      flatMap(value => {
+        return of(value.currentUser);
+      })
+    );
   }
 }

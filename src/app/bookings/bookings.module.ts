@@ -29,19 +29,12 @@ import { MatBadgeModule } from "@angular/material/badge";
 import { MatRadioModule } from "@angular/material/radio";
 /*components imported */
 /* import { StatusviewComponent } from './statusview/statusview.component'; */
-import { StatusatglanceComponent } from "./statusview/statusatglance/statusatglance.component";
-import { CurrenthallstatusComponent } from "./statusview/currenthallstatus/currenthallstatus.component";
 import { BookingsviewComponent } from "./bookingsview/bookingsview.component";
 import { MakebookingsComponent } from "./bookingsview/makebookings/makebookings.component";
 import { TrackbookingsComponent } from "./bookingsview/trackbookings/trackbookings.component";
 
 @NgModule({
-  entryComponents: [
-    StatusatglanceComponent,
-    CurrenthallstatusComponent,
-    MakebookingsComponent,
-    TrackbookingsComponent
-  ],
+  entryComponents: [MakebookingsComponent, TrackbookingsComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -75,9 +68,6 @@ import { TrackbookingsComponent } from "./bookingsview/trackbookings/trackbookin
   ],
   declarations: [
     /*components to display */
-    /* StatusviewComponent,  */
-    StatusatglanceComponent,
-    CurrenthallstatusComponent,
     BookingsviewComponent,
     MakebookingsComponent,
     TrackbookingsComponent

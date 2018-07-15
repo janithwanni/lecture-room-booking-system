@@ -40,14 +40,12 @@ export class UserauthService {
                       ? data.payload.val() + ""
                       : level;
                 }
-                this.store.setCurrentUser(
-                  new User(
-                    value.user.uid,
-                    name + "",
-                    value.user.email,
-                    level + ""
-                  )
-                );
+                this.store.setCurrentUser({
+                  uid: value.user.uid,
+                  username: name,
+                  level: level,
+                  email: value.user.email
+                });
                 //navigate to the homepage URL
                 this.router.navigateByUrl("/home/bookings/main");
               });

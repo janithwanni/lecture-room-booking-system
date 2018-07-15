@@ -1,43 +1,21 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatPaginator, MatSort } from "@angular/material";
-import { merge, Observable, of } from "rxjs";
-import { startWith, switchMap, flatMap, catchError, map } from "rxjs/operators";
-import { ModifybookingsRtdbService } from "../../services/modifybookings-rtdb.service";
-import { TableRow } from "./modifybookings-data-interface";
-import { ModifybookingsCdkDatasource } from "./modifybookings-cdk-datasource";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort } from '@angular/material';
+import { TrackbookingsDataSource } from './trackbookings-datasource';
+
 @Component({
-  selector: "app-trackbookings",
-  templateUrl: "./trackbookings.component.html",
-  styleUrls: ["./trackbookings.component.scss"]
+  selector: 'bookings/bookingsview/trackbookings',
+  templateUrl: './trackbookings.component.html',
+  styleUrls: ['./trackbookings.component.css']
 })
 export class TrackbookingsComponent implements OnInit {
-  displayedColumns: string[] = [
-    "title",
-    "hall",
-    "date",
-    "starttime",
-    "confirmed",
-    "modify"
-  ];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  dataSource: TrackbookingsDataSource;
 
-  data: ModifybookingsCdkDatasource;
-
-  constructor(private modbook: ModifybookingsRtdbService) {}
+  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+  displayedColumns = ['id', 'name'];
 
   ngOnInit() {
-    this.data = new ModifybookingsCdkDatasource(this.modbook);
-    this.data.loadRow();
+    this.dataSource = new TrackbookingsDataSource(this.paginator, this.sort);
   }
-} /* .subscribe(data=>{this.data = data;console.log(this.data)}); */
-//data:Observable<TableRow[]>;
-/* this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0); */
-/* this.data = merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        startWith({}),
-        switchMap(()=>{return this.modbook.makeRows()})        
-      ) */
-/* columns to display are
-['title','hall','date','starttime','confirmed','modify'];
-*/
+}
