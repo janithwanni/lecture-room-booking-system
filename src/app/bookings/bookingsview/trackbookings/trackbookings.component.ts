@@ -1,17 +1,36 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, DoCheck } from "@angular/core";
 import { MatPaginator, MatSort } from "@angular/material";
 import { TrackbookingsDataSource } from "./trackbookings-datasource";
 import { DatastoreManagerService } from "../../../shared/services/datastore-manager.service";
 import { SearchbookingsRtdbService } from "../../services/searchbookings-rtdb.service";
-import { Time } from "../../../shared/models/time";
-import { Hall } from "../../../shared/models/hall";
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger
+} from "@angular/animations";
+import { Booking } from "../../../shared/models/booking";
 
 @Component({
   selector: "bookings/bookingsview/trackbookings",
   templateUrl: "./trackbookings.component.html",
-  styleUrls: ["./trackbookings.component.css"]
+  styleUrls: ["./trackbookings.component.css"],
+  animations: [
+    trigger("detailExpand", [
+      state(
+        "collapsed",
+        style({ height: "0px", minHeight: "0", display: "none" })
+      ),
+      state("expanded", style({ height: "*" })),
+      transition(
+        "expanded <=> collapsed",
+        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
+      )
+    ])
+  ]
 })
-export class TrackbookingsComponent implements OnInit {
+export class TrackbookingsComponent implements OnInit, DoCheck {
   /* tableTimeList: Time[];
   tableHallList: Hall[]; */
   constructor(
@@ -25,6 +44,7 @@ export class TrackbookingsComponent implements OnInit {
       this.tableTimeList = value;
     }); */
   }
+  expandedBooking: Booking;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: TrackbookingsDataSource;
@@ -38,5 +58,8 @@ export class TrackbookingsComponent implements OnInit {
       this.sort,
       this.store
     );
+  }
+  ngDoCheck() {
+    /* console.log(this.expandedBooking); */
   }
 }
