@@ -12,6 +12,7 @@ export class Booking {
     "title" : "Case 1",
     "user-id" : "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2"
 */
+  id: string;
   by: string;
   confirmed: number;
   date: string;

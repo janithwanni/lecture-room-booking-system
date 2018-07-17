@@ -11,6 +11,7 @@ import {
   trigger
 } from "@angular/animations";
 import { Booking } from "../../../shared/models/booking";
+import { BookingsOpsRtdbService } from "../../services/bookings-ops-rtdb.service";
 
 @Component({
   selector: "bookings/bookingsview/trackbookings",
@@ -31,19 +32,11 @@ import { Booking } from "../../../shared/models/booking";
   ]
 })
 export class TrackbookingsComponent implements OnInit, DoCheck {
-  /* tableTimeList: Time[];
-  tableHallList: Hall[]; */
   constructor(
     public store: DatastoreManagerService,
-    public search: SearchbookingsRtdbService
-  ) {
-    /* this.store.getHallList().subscribe(value => {
-      this.tableHallList = value;
-    });
-    this.store.getTimeList().subscribe(value => {
-      this.tableTimeList = value;
-    }); */
-  }
+    public search: SearchbookingsRtdbService,
+    private ops: BookingsOpsRtdbService
+  ) {}
   expandedBooking: Booking;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -62,4 +55,10 @@ export class TrackbookingsComponent implements OnInit, DoCheck {
   ngDoCheck() {
     /* console.log(this.expandedBooking); */
   }
+
+  confirmBooking(booking: Booking) {
+    this.ops.confirmBookings(booking);
+  }
+
+  deleteBooking(id: string) {}
 }

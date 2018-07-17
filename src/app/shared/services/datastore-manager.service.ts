@@ -17,19 +17,15 @@ import { Hall } from "../models/hall";
   providedIn: "root"
 })
 export class DatastoreManagerService {
-  constructor(private store: DataStore) {
-    console.log("in constructor of datastoremanager service");
-  }
+  constructor(private store: DataStore) {}
 
   setCurrentUser(user: User) {
-    console.log("calling setcurrentuser function in datastore manager service");
     this.store.dispatch(new SetCurrentUser(user));
   }
 
   getCurrentUser(): Observable<User> {
     return this.store.observe().pipe(
       flatMap(value => {
-        console.log(value);
         return of(value.currentUser);
       })
     );
@@ -42,7 +38,6 @@ export class DatastoreManagerService {
   getDisplayBookingList(): Observable<Booking[]> {
     return this.store.observe().pipe(
       flatMap(value => {
-        console.log(value);
         return of(value.displayBookingList);
       })
     );
@@ -55,7 +50,6 @@ export class DatastoreManagerService {
   getTimeList(): Observable<Time[]> {
     return this.store.observe().pipe(
       flatMap(value => {
-        console.log(value);
         return of(value.timeList);
       })
     );
@@ -68,7 +62,6 @@ export class DatastoreManagerService {
   getHallList(): Observable<Hall[]> {
     return this.store.observe().pipe(
       flatMap(value => {
-        console.log(value);
         return of(value.hallList);
       })
     );

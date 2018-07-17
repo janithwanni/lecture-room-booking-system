@@ -32,7 +32,21 @@
     <ng-container matColumnDef="expandedBooking">
       <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
         <div class="booking-element-detail" [@detailExpand]="element == expandedBooking ? 'expanded' : 'collapsed'">
-          <div class="booking-detail-description-container">Apples not oranges {{element['by']}}</div>
+          <div class="booking-detail-description-container">
+            <b>Title: {{element.title}}</b>
+            <br/>
+            <span>Description: {{element.description}}</span>
+            <br/>
+            <div class="booking-detail-button-row">
+              <span class="booking-detail-button">
+                <button mat-raised-button color="primary" (click)="confirmBooking(element);">Confirm</button>
+              </span>
+              <span class="booking-detail-button">
+                <button mat-raised-button color="warn" (click)="deleteBooking(id);">Delete</button>
+              </span>
+            </div>
+            <br/>
+          </div>
         </div>
       </td>
     </ng-container>

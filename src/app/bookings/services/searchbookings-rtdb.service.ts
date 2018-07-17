@@ -64,6 +64,7 @@ export class SearchbookingsRtdbService {
                   .pipe(
                     map(result => {
                       let booking: Booking = {
+                        id: hall["id"],
                         by: "",
                         confirmed: 0,
                         date: "",

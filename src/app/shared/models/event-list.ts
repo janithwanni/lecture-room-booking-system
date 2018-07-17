@@ -39,7 +39,7 @@ export class PushBookingtoList extends StoreEvent {
 }
 export class PushTimeList extends StoreEvent {
   constructor(payload: Time[]) {
-    console.log(payload);
+    /* console.log(payload); */
     super(payload);
   }
 

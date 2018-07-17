@@ -22,3 +22,11 @@ tr.booking-element-row:not(.example-expanded-row):active {
 .booking-detail-description-container {
   padding: 8px;
 }
+
+.booking-detail-button-row {
+  padding: 5px;
+}
+
+.booking-detail-button {
+  padding: 8px;
+}

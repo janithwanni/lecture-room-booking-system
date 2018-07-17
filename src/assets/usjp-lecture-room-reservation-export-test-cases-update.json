@@ -1,0 +1,163 @@
+{
+  "root": {
+    "lecture-halls": {
+      "lct-hall-1": {
+        "name": "NFC3"
+      },
+      "lct-hall-2": {
+        "name": "NFC6"
+      },
+      "lct-hall-3": {
+        "name": "NFC2"
+      },
+      "lct-hall-4": {
+        "name": "NFC1"
+      },
+      "lct-hall-5": {
+        "name": "S1"
+      }
+    },
+    "main-bookings": {
+      "-LHEBFihS1y3_ZG-Xr4y": {
+        "by": "User",
+        "confirmed": 0,
+        "date": "2018-6-16",
+        "description": "Case 1 Desc",
+        "end-time": "time-05",
+        "hall-id": "lct-hall-1",
+        "isDepartment": 0,
+        "isStudent": 1,
+        "start-time": "time-02",
+        "title": "Case 1",
+        "user-id": "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2"
+      },
+      "-LHEBshdRi9Xb_hiwPnN": {
+        "by": "User",
+        "confirmed": 0,
+        "date": "2018-6-16",
+        "description": "Case 2 Desc",
+        "end-time": "time-04",
+        "hall-id": "lct-hall-1",
+        "isDepartment": 0,
+        "isStudent": 1,
+        "start-time": "time-01",
+        "title": "Case 2",
+        "user-id": "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2"
+      },
+      "-LHECA5IOrS_PMAYp8ye": {
+        "by": "User",
+        "confirmed": 0,
+        "date": "2018-6-16",
+        "description": "Case 3",
+        "end-time": "time-06",
+        "hall-id": "lct-hall-1",
+        "isDepartment": 0,
+        "isStudent": 1,
+        "start-time": "time-05",
+        "title": "Case 3",
+        "user-id": "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2"
+      },
+      "-LHECGmec0eBa8UpcsMx": {
+        "by": "User",
+        "confirmed": 0,
+        "date": "2018-6-16",
+        "description": "Case 4 Desc",
+        "end-time": "time-09",
+        "hall-id": "lct-hall-1",
+        "isDepartment": 0,
+        "isStudent": 1,
+        "start-time": "time-06",
+        "title": "Case 4",
+        "user-id": "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2"
+      },
+      "-LHECo2beMA4-SX925Bl": {
+        "by": "User",
+        "confirmed": 0,
+        "date": "2018-6-16",
+        "description": "Case 5 Desc",
+        "end-time": "time-14",
+        "hall-id": "lct-hall-1",
+        "isDepartment": 0,
+        "isStudent": 1,
+        "start-time": "time-11",
+        "title": "Case 5",
+        "user-id": "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2"
+      }
+    },
+    "tentative-bookings": {
+      "2018": {
+        "6": {
+          "16": {
+            "lct-hall-1": {
+              "-LHEBFisMgTqzVEi8iou": {
+                "end-time": "time-05",
+                "id": "-LHEBFihS1y3_ZG-Xr4y",
+                "start-time": "time-02"
+              },
+              "-LHEBshfp1EREqCT027j": {
+                "end-time": "time-04",
+                "id": "-LHEBshdRi9Xb_hiwPnN",
+                "start-time": "time-01"
+              },
+              "-LHECA5LGnpjfI4rgAxz": {
+                "end-time": "time-06",
+                "id": "-LHECA5IOrS_PMAYp8ye",
+                "start-time": "time-05"
+              },
+              "-LHECGmgdwDFA_DRrK7B": {
+                "end-time": "time-09",
+                "id": "-LHECGmec0eBa8UpcsMx",
+                "start-time": "time-06"
+              },
+              "-LHECo2ceMeA-Gie66l3": {
+                "end-time": "time-14",
+                "id": "-LHECo2beMA4-SX925Bl",
+                "start-time": "time-11"
+              }
+            }
+          }
+        }
+      }
+    },
+    "timeids": {
+      "time-00": "0800",
+      "time-01": "0830",
+      "time-02": "0900",
+      "time-03": "0930",
+      "time-04": "1000",
+      "time-05": "1030",
+      "time-06": "1100",
+      "time-07": "1130",
+      "time-08": "1200",
+      "time-09": "1230",
+      "time-10": "1300",
+      "time-11": "1330",
+      "time-12": "1400",
+      "time-13": "1430",
+      "time-14": "1500",
+      "time-15": "1530",
+      "time-16": "1600",
+      "time-17": "1630",
+      "time-18": "1700",
+      "time-19": "1730",
+      "time-20": "1800"
+    },
+    "users": {
+      "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2": {
+        "email": "r.t.doram@gmail.com",
+        "level": "admin",
+        "name": "Janith Wanniarachchi"
+      },
+      "CihbWXHUTIZVCCKG39364fKEDUn1": {
+        "email": "janithcwanni@gmail.com",
+        "level": "officer",
+        "name": "Chandrasiri Wanniarachchi"
+      },
+      "HLq1mbBRichFWHLF18IxwB2XVZg2": {
+        "email": "student@sjp.ac.lk",
+        "level": "student",
+        "name": "Namal Gunapala"
+      }
+    }
+  }
+}

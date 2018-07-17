@@ -55,6 +55,12 @@ export class MakebookingsComponent implements OnInit, DoCheck {
         this.searchbookings.optionCounts["tentative"] > 0 &&
         this.searchbookings.isDataSearched == true
       ) {
+        console.log("list of values from searchbookings");
+        console.log(
+          this.searchbookings.optionCounts["confirmed"],
+          this.searchbookings.optionCounts["tentative"],
+          this.searchbookings.isDataSearched
+        );
         this.isFree = true;
       }
     }
