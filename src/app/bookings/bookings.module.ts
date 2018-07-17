@@ -25,6 +25,7 @@ import {
   MatPaginatorModule,
   MatSortModule
 } from "@angular/material";
+import { MatExpansionModule } from "@angular/material/expansion";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatRadioModule } from "@angular/material/radio";
 /*components imported */
@@ -64,7 +65,8 @@ import { TrackbookingsComponent } from "./bookingsview/trackbookings/trackbookin
     MatChipsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatExpansionModule
   ],
   declarations: [
     /*components to display */

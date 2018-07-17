@@ -2,6 +2,8 @@ import { StoreEvent } from "./store-event";
 import { State } from "./data-store";
 import { User } from "./user";
 import { Booking } from "./booking";
+import { Time } from "./time";
+import { Hall } from "./hall";
 
 export class SetCurrentUser extends StoreEvent {
   constructor(payload: User) {
@@ -31,6 +33,39 @@ export class PushBookingtoList extends StoreEvent {
       currentUser: state.currentUser,
       hallList: state.hallList,
       displayBookingList: this.payload,
+      timeList: state.timeList
+    };
+  }
+}
+export class PushTimeList extends StoreEvent {
+  constructor(payload: Time[]) {
+    console.log(payload);
+    super(payload);
+  }
+
+  getNewState(state: State) {
+    console.log(state);
+    return {
+      ...state,
+      currentUser: state.currentUser,
+      hallList: state.hallList,
+      displayBookingList: state.displayBookingList,
+      timeList: this.payload
+    };
+  }
+}
+
+export class PushHallList extends StoreEvent {
+  constructor(payload: Hall[]) {
+    super(payload);
+  }
+
+  getNewState(state: State) {
+    return {
+      ...state,
+      currentUser: state.currentUser,
+      hallList: this.payload,
+      displayBookingList: state.displayBookingList,
       timeList: state.timeList
     };
   }

@@ -56,6 +56,8 @@ export class MainviewComponent {
             });
           this.usernameStr = this.store.getCurrentUser();
         });
+      } else {
+        this.usernameStr = this.store.getCurrentUser();
       }
     });
     /* this.username = this.store.getCurrentUser().getUserName().toString(); */

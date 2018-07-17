@@ -16,11 +16,11 @@ export class Booking {
   confirmed: number;
   date: string;
   description: string;
-  endTime: string;
-  startTime: string;
-  hallID: string;
+  "end-time": string;
+  "start-time": string;
+  "hall-id": string;
   isDepartment: number;
   isStudent: number;
   title: string;
-  userid: string;
+  "user-id": string;
 }

@@ -3,6 +3,8 @@ import { AngularFireDatabase } from "angularfire2/database";
 import { Observable, of, concat } from "rxjs";
 import { flatMap } from "rxjs/operators";
 import { TimeslotManagerService } from "./timeslot-manager.service";
+import { Hall } from "../models/hall";
+import { DatastoreManagerService } from "./datastore-manager.service";
 
 @Injectable({
   providedIn: "root"
@@ -10,7 +12,8 @@ import { TimeslotManagerService } from "./timeslot-manager.service";
 export class HallInfoManagerService {
   constructor(
     private db: AngularFireDatabase,
-    private timeslot: TimeslotManagerService
+    private timeslot: TimeslotManagerService,
+    private store: DatastoreManagerService
   ) {}
 
   getHalls(): Observable<any> {
@@ -18,6 +21,27 @@ export class HallInfoManagerService {
       .list("/root/lecture-halls")
       .valueChanges();
     return items;
+  }
+
+  generateHallList() {
+    let hallList: Hall[] = [];
+    this.db
+      .list("/root/lecture-halls")
+      .snapshotChanges()
+      .subscribe(values => {
+        for (let value of values) {
+          let hall: Hall = { id: "", name: "" };
+          hall.id = value.key;
+          hall.name = value.payload.val()["name"] + "";
+
+          /* hall[value.key] = value.payload.val() + ""; */
+          console.log(hall);
+          hallList.push(hall);
+        }
+        console.log("pushing hall list");
+        console.log(hallList);
+        this.store.pushHallList(hallList);
+      });
   }
 }
 /*  

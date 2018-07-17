@@ -12,7 +12,7 @@
 
   <h4 class="mat-h4"> Select date and time </h4>
   <mat-form-field>
-    <input matInput [matDatepicker]="picker" (dateInput)="pickDate('input', $event)" placeholder="Date" [min]="minDate" [max]="maxDate">
+    <input matInput [matDatepicker]="picker" (dateInput)="pickDate('input', $event)" placeholder="Date">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker touchUi #picker></mat-datepicker>
   </mat-form-field>
@@ -37,10 +37,12 @@
   <br/>
   <mat-divider [inset]="true"></mat-divider>
   <br/>
-  <div *ngIf="isNotFree | async">
+  <div *ngIf="!isFree">
     <button mat-raised-button color="primary" (click)="searchBookings();"> Search Booking </button>
   </div>
-  <div *ngIf="isFree | async">
+  <br/>
+
+  <!-- <div *ngIf="isFree | async">
     <h4 class="mat-h4">Title and Description of event</h4>
     <mat-form-field>
       <input [(ngModel)]="title" name="title" matInput placeholder="Title of the Event" />
@@ -72,5 +74,46 @@
     <mat-divider [inset]="true"></mat-divider>
     <br/>
     <button mat-raised-button color="primary" (click)="makeBookingClick();makebookingform.reset();"> Make Booking </button>
-  </div>
+  </div> -->
+
+  <mat-expansion-panel [(disabled)]="!isFree" [(expanded)]="isFree">
+    <mat-expansion-panel-header>
+      <mat-panel-title>Make Booking </mat-panel-title>
+      <mat-panel-description>...</mat-panel-description>
+    </mat-expansion-panel-header>
+    <div *ngIf="isFree">
+      <h4 class="mat-h4">Title and Description of event</h4>
+      <mat-form-field>
+        <input [(ngModel)]="title" name="title" matInput placeholder="Title of the Event" />
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <textarea [(ngModel)]="description" name="description" matInput placeholder="Description of the event" rows="5" maxlength="256"
+          style="resize: none"></textarea>
+      </mat-form-field>
+      <br/>
+
+      <mat-divider [inset]="true"></mat-divider>
+      <br/>
+
+      <h4 class="mat-h4">Request Information</h4>
+      <mat-form-field>
+        <input [(ngModel)]="by" name="by" matInput placeholder="Name of requesting person?" />
+      </mat-form-field>
+
+      <br/>
+
+      <mat-radio-group style="display: inline-flex;flex-direction: column;" [(ngModel)]="studentORdept" name="studentORdept">
+        <mat-radio-button *ngFor="let option of studOrDeptOptions" [value]="option">
+          {{option}}
+        </mat-radio-button>
+      </mat-radio-group>
+
+      <br/>
+      <mat-divider [inset]="true"></mat-divider>
+      <br/>
+      <button mat-raised-button color="primary" (click)="makeBookingClick();makebookingform.reset();"> Make Booking </button>
+    </div>
+  </mat-expansion-panel>
+
 </form>

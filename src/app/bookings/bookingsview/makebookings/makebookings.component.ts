@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, DoCheck } from "@angular/core";
 import { HallInfoManagerService } from "../../../shared/services/hall-info-manager.service";
 import { Observable, of } from "rxjs";
 import { MatDatepickerInputEvent } from "@angular/material/datepicker";
@@ -11,7 +11,7 @@ import { SearchbookingsRtdbService } from "../../services/searchbookings-rtdb.se
   templateUrl: "./makebookings.component.html",
   styleUrls: ["./makebookings.component.scss"]
 })
-export class MakebookingsComponent implements OnInit {
+export class MakebookingsComponent implements OnInit, DoCheck {
   minDate = new Date();
   maxDate = new Date(
     new Date().getFullYear() + 1,
@@ -24,7 +24,7 @@ export class MakebookingsComponent implements OnInit {
   startTime: Observable<string[]>;
 
   studOrDeptOptions: string[] = ["Student Body", "Department"];
-  isFree = of(false);
+  isFree = false;
   isNotFree = of(true);
   @Input() hall: string;
   @Input() date: Date;
@@ -42,11 +42,23 @@ export class MakebookingsComponent implements OnInit {
     private searchbookings: SearchbookingsRtdbService
   ) {
     this.items = hallinfo.getHalls();
-
+    this.timeslotmanager.generateTimeLists();
     this.startTime = this.timeslotmanager.generateStartTimes();
     this.endTime = this.timeslotmanager.generateEndTimes();
+    this.hallinfo.generateHallList();
   }
 
+  ngDoCheck() {
+    if (this.searchbookings.optionCounts != null) {
+      if (
+        this.searchbookings.optionCounts["confirmed"] == 0 &&
+        this.searchbookings.optionCounts["tentative"] > 0 &&
+        this.searchbookings.isDataSearched == true
+      ) {
+        this.isFree = true;
+      }
+    }
+  }
   ngOnInit() {}
 
   pickDate(type: string, event: MatDatepickerInputEvent<Date>) {
@@ -68,6 +80,8 @@ export class MakebookingsComponent implements OnInit {
     if (
       this.hall != null &&
       this.date != null &&
+      this.date <= this.maxDate &&
+      this.date >= this.minDate &&
       this.startingTime != null &&
       this.endingTime != null &&
       this.title != null &&
@@ -105,6 +119,19 @@ export class MakebookingsComponent implements OnInit {
         this.description
       );
     }
+
+    //recall the searchbookings function to reload the database
+    const month = this.date.getMonth() + 1;
+    const list = this.searchbookings.getBookingsInRange(
+      this.date.getFullYear() + "",
+      month + "",
+      this.date.getDate() + "",
+      this.hall,
+      this.startingTime,
+      this.endingTime
+    );
+
+    this.isFree = false;
   }
 }
 /*TODO add the validation stuff*/

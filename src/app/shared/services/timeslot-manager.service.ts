@@ -2,12 +2,17 @@ import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "angularfire2/database";
 import { map, flatMap } from "rxjs/operators";
 import { Observable, of } from "rxjs";
+import { Time } from "../models/time";
+import { DatastoreManagerService } from "./datastore-manager.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class TimeslotManagerService {
-  constructor(private db: AngularFireDatabase) {}
+  constructor(
+    private db: AngularFireDatabase,
+    private store: DatastoreManagerService
+  ) {}
 
   startTimes: string[] = [];
   endTimes: string[] = [];
@@ -38,6 +43,25 @@ export class TimeslotManagerService {
           return of(this.endTimes);
         })
       );
+  }
+
+  generateTimeLists() {
+    let timeList: Time[] = [];
+    this.db
+      .list("/root/timeids")
+      .snapshotChanges()
+      .subscribe(values => {
+        for (let value of values) {
+          let time: Time = { id: "", value: "" };
+          time.id = value.key;
+          time.value = value.payload.val() + "";
+          /* time[value.key] = value.payload.val() + ""; */
+          timeList.push(time);
+        }
+        console.log("pushing time list");
+        console.log(timeList);
+        this.store.pushTimeList(timeList);
+      });
   }
 }
 
