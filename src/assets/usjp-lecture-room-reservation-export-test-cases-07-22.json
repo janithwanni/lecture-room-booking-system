@@ -1,0 +1,163 @@
+{
+  "root" : {
+    "lecture-halls" : {
+      "lct-hall-1" : {
+        "name" : "NFC3"
+      },
+      "lct-hall-2" : {
+        "name" : "NFC6"
+      },
+      "lct-hall-3" : {
+        "name" : "NFC2"
+      },
+      "lct-hall-4" : {
+        "name" : "NFC1"
+      },
+      "lct-hall-5" : {
+        "name" : "S1"
+      }
+    },
+    "main-bookings" : {
+      "-LHcGP-wJGQQdhMXE6ld" : {
+        "by" : "Janith Wanni",
+        "confirmed" : 0,
+        "date" : "2018-7-19",
+        "description" : "Case 1: 9 to 11: It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using '",
+        "end-time" : "time-06",
+        "hall-id" : "lct-hall-1",
+        "isDepartment" : 0,
+        "isStudent" : 1,
+        "start-time" : "time-02",
+        "title" : "Case 1",
+        "user-id" : "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2"
+      },
+      "-LHcJ3m8f8OeOhM5bckn" : {
+        "by" : "Janith Wanniya",
+        "confirmed" : 0,
+        "date" : "2018-7-19",
+        "description" : "Case 2:0830-1030:It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using '",
+        "end-time" : "time-05",
+        "hall-id" : "lct-hall-1",
+        "isDepartment" : 0,
+        "isStudent" : 1,
+        "start-time" : "time-01",
+        "title" : "Case 2",
+        "user-id" : "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2"
+      },
+      "-LHcJE3zsVDmxIREAmbw" : {
+        "by" : "Janith Wanni",
+        "confirmed" : 0,
+        "date" : "2018-7-19",
+        "description" : "Case 4:1100-1300:It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using '",
+        "end-time" : "time-10",
+        "hall-id" : "lct-hall-1",
+        "isDepartment" : 0,
+        "isStudent" : 1,
+        "start-time" : "time-06",
+        "title" : "Case 4",
+        "user-id" : "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2"
+      },
+      "-LHcJWMzhOJHiA3cse_R" : {
+        "by" : "Janith Wanniya",
+        "confirmed" : 0,
+        "date" : "2018-7-19",
+        "description" : "Case 3:1030-1130:It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using '",
+        "end-time" : "time-07",
+        "hall-id" : "lct-hall-1",
+        "isDepartment" : 0,
+        "isStudent" : 1,
+        "start-time" : "time-05",
+        "title" : "Case 3",
+        "user-id" : "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2"
+      },
+      "-LHcJn5X0BwpQgPZD5aY" : {
+        "by" : "Janith Wanni",
+        "confirmed" : 0,
+        "date" : "2018-7-19",
+        "description" : "Case 5:1330-1530:It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using '",
+        "end-time" : "time-15",
+        "hall-id" : "lct-hall-1",
+        "isDepartment" : 0,
+        "isStudent" : 1,
+        "start-time" : "time-11",
+        "title" : "Case 5",
+        "user-id" : "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2"
+      }
+    },
+    "tentative-bookings" : {
+      "2018" : {
+        "7" : {
+          "19" : {
+            "lct-hall-1" : {
+              "-LHcGP05-2V3N2GX5msF" : {
+                "end-time" : "time-06",
+                "id" : "-LHcGP-wJGQQdhMXE6ld",
+                "start-time" : "time-02"
+              },
+              "-LHcJ3mKhKPzPwvKyeSK" : {
+                "end-time" : "time-05",
+                "id" : "-LHcJ3m8f8OeOhM5bckn",
+                "start-time" : "time-01"
+              },
+              "-LHcJE42nId3fUQA75uO" : {
+                "end-time" : "time-10",
+                "id" : "-LHcJE3zsVDmxIREAmbw",
+                "start-time" : "time-06"
+              },
+              "-LHcJWN3KW6zRdk7itLe" : {
+                "end-time" : "time-07",
+                "id" : "-LHcJWMzhOJHiA3cse_R",
+                "start-time" : "time-05"
+              },
+              "-LHcJn5g3Xlmgq1FVLSG" : {
+                "end-time" : "time-15",
+                "id" : "-LHcJn5X0BwpQgPZD5aY",
+                "start-time" : "time-11"
+              }
+            }
+          }
+        }
+      }
+    },
+    "timeids" : {
+      "time-00" : "0800",
+      "time-01" : "0830",
+      "time-02" : "0900",
+      "time-03" : "0930",
+      "time-04" : "1000",
+      "time-05" : "1030",
+      "time-06" : "1100",
+      "time-07" : "1130",
+      "time-08" : "1200",
+      "time-09" : "1230",
+      "time-10" : "1300",
+      "time-11" : "1330",
+      "time-12" : "1400",
+      "time-13" : "1430",
+      "time-14" : "1500",
+      "time-15" : "1530",
+      "time-16" : "1600",
+      "time-17" : "1630",
+      "time-18" : "1700",
+      "time-19" : "1730",
+      "time-20" : "1800"
+    },
+    "users" : {
+      "5KZKcCq8ZjWyCrZKoxQJAuWlOFa2" : {
+        "email" : "r.t.doram@gmail.com",
+        "level" : "admin",
+        "name" : "Janith Wanniarachchi"
+      },
+      "CihbWXHUTIZVCCKG39364fKEDUn1" : {
+        "email" : "janithcwanni@gmail.com",
+        "level" : "officer",
+        "name" : "Chandrasiri Wanniarachchi"
+      },
+      "HLq1mbBRichFWHLF18IxwB2XVZg2" : {
+        "email" : "student@sjp.ac.lk",
+        "level" : "student",
+        "name" : "Namal Gunapala"
+      }
+    }
+  }
+}

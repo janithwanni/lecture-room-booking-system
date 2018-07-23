@@ -1,0 +1,233 @@
+for (let option of options) {
+      this.isDataSearched = true;
+      this.db
+        .list(
+          "/root/" +
+            option +
+            "-bookings/" +
+            year +
+            "/" +
+            month +
+            "/" +
+            day +
+            "/lct-hall-" +
+            (hall + 1)
+        )
+        .valueChanges()
+        .pipe(
+          map(h => {
+            let hallStartTime = 0;
+            let hallEndTime = 0;
+            for (let hall of h) {
+              hallStartTime = +hall["start-time"].slice(
+                hall["start-time"].length - 2,
+                hall["start-time"].length
+              );
+              hallEndTime = +hall["end-time"].slice(
+                hall["end-time"].length - 2,
+                hall["end-time"].length
+              );
+            }
+            if (
+              (hallStartTime >= +starttime && hallStartTime <= +endtime) ||
+              (hallEndTime >= +starttime && hallEndTime <= +endtime)
+            ) {
+              this.db
+                .list("/root/main-bookings/" + hall["id"] + "/")
+                .snapshotChanges()
+                .pipe(
+                  map(result => {
+                    let booking: Booking = {
+                      id: hall["id"],
+                      by: "",
+                      confirmed: 0,
+                      date: "",
+                      description: "",
+                      "end-time": "",
+                      "start-time": "",
+                      title: "",
+                      "hall-id": "",
+                      isDepartment: 0,
+                      isStudent: 0,
+                      "user-id": ""
+                    };
+                    for (let row of result) {
+                      
+                    }
+                    this.store.getTimeList().subscribe(times => {
+                      for (let time of times) {
+                        if (booking["start-time"] == time.id) {
+                          booking["start-time"] = time.value;
+                        }
+                        if (booking["end-time"] == time.id) {
+                          booking["end-time"] = time.value;
+                        }
+                      }
+                      this.store.getHallList().subscribe(halls => {
+                        for (let h of halls) {
+                          if (booking["hall-id"] == h.id) {
+                            booking["hall-id"] = h.name + "";
+                            bookingsList.push(booking);
+                            console.log(bookingsList.length);
+                            break;
+                          }
+                        }
+                      });
+                    });
+                    //this.store.pushBookingtoList(bookingsList);
+                  })
+                )
+                .subscribe(data => {
+                  this.optionCounts[option] = bookingsList.length;
+                  this.store.pushBookingtoList(bookingsList);
+                });
+            } else {
+              this.optionCounts[option] = bookingsList.length;
+              this.store.pushBookingtoList(bookingsList);
+            }
+          })
+        )
+        .subscribe(data => {});
+    }
+
+
+
+
+flatMap(optionDetail => {
+            let hallStartTime = 0;
+            let hallEndTime = 0;
+            let hallID = 0;
+            for (let hall of optionDetail) {
+              hallStartTime = +hall["start-time"].slice(
+                hall["start-time"].length - 2,
+                hall["start-time"].length
+              );
+              hallEndTime = +hall["end-time"].slice(
+                hall["end-time"].length - 2,
+                hall["end-time"].length
+              );
+              hallID = hall["id"];
+            }
+            console.log(
+              hallStartTime,
+              starttime,
+              hallStartTime,
+              endtime,
+              hallEndTime,
+              starttime,
+              hallEndTime,
+              endtime
+            );
+            if (
+              (hallStartTime >= +starttime && hallStartTime <= +endtime) ||
+              (hallEndTime >= +starttime && hallEndTime <= +endtime)
+            ) {
+              console.log(
+                "hallID",
+                hallID,
+                "/root/main-bookings/" + hallID + "/"
+              );
+              return this.db
+                .list("/root/main-bookings/" + hallID + "/")
+                .snapshotChanges();
+            } else {
+              console.log("hallID", hallID);
+              return of([]);
+            }
+          }),
+          map(snap => {
+            let booking: Booking = {
+              id: hall["id"],
+              by: "",
+              confirmed: 0,
+              date: "",
+              description: "",
+              "end-time": "",
+              "start-time": "",
+              title: "",
+              "hall-id": "",
+              isDepartment: 0,
+              isStudent: 0,
+              "user-id": ""
+            };
+            console.log("snap infor", snap);
+            for (let row of snap) {
+              booking[row.payload.key] = row.payload.val() + "";
+            }
+            for (let time of this.timeList) {
+              if (booking["start-time"] == time.id) {
+                booking["start-time"] = time.value;
+              }
+              if (booking["end-time"] == time.id) {
+                booking["end-time"] = time.value;
+              }
+            }
+            for (let hall of this.hallList) {
+              if (booking["hall-id"] == hall.id) {
+                booking["hall-id"] = hall.name;
+              }
+            }
+            bookingsList.push(booking);
+          })
+
+
+          this.store.getHallList().subscribe(data => {
+      for (let dat of data) {
+        if (dat.name == booking["hall-id"]) {
+          let hallid = dat.id;
+          let startID = "";
+          let endID = "";
+          this.store.getTimeList().subscribe(times => {
+            for (let time of times) {
+              if (time.value == booking["start-time"]) {
+                startID = time.id;
+              }
+            }
+            for (let time of times) {
+              if (time.value == booking["end-time"]) {
+                endID = time.id;
+              }
+            }
+            /* this.db
+              .list(
+                "/root/tentative-bookings/" +
+                  year +
+                  "/" +
+                  month +
+                  "/" +
+                  day +
+                  "/" +
+                  hallid +
+                  "/",
+                ref =>
+                  ref
+                    .orderByChild("id")
+                    .equalTo(booking.id)
+                    .limitToFirst(1)
+              )
+              .remove(); */
+            /* console.log("removed from tentative bookings"); */
+            const pushList = {
+              id: booking.id,
+              "start-time": startID,
+              "end-time": endID
+            };
+            /* this.db
+              .list(
+                "/root/confirmed-bookings/" +
+                  year +
+                  "/" +
+                  month +
+                  "/" +
+                  day +
+                  "/" +
+                  hallid +
+                  "/"
+              )
+              .push(pushList); */
+            console.log("pushed to confirm bookings");
+          });
+          break;
+        }
+      }
+    });

@@ -1,9 +1,17 @@
+<div *ngIf="isDataSearched | async">
+  <div *ngIf="isFree">
+    <h4 class="mat-h4" class="free-text"> Free </h4>
+  </div>
+</div>
 <div class="mat-elevation-z8">
   <table style="width:100%" mat-table #table [dataSource]="dataSource" matSort multiTemplateDataRows>
     <!-- Date Column -->
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-      <td mat-cell *matCellDef="let row">{{row.date}}</td>
+      <td mat-cell *matCellDef="let row">
+        <span [class.booking-confirmed-row]="row.confirmed==1">&nbsp;&nbsp;</span>
+        {{row.date}}
+      </td>
     </ng-container>
 
     <!-- Start Time Column -->
@@ -53,7 +61,7 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="booking-element-row" [class.booking-expanded-row]="expandedBooking === row"
-      (click)="expandedBooking = row;"></tr>
+      (click)="expandedBooking = expandedBooking == row ? null:row;"></tr>
     <tr mat-row *matRowDef="let element; columns: ['expandedBooking'];" class="booking-detail-row"></tr>
   </table>
 

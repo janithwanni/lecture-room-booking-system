@@ -1,0 +1,30 @@
+changelog:
+issue #1: fix free indicator showing even when no searches have been done
+issue #2: new feature where the free shows whether free or taken
+issue #3: make dialog components to show error, success
+issue #4: fix color palette
+issue #5: fix login page background
+issue #6: convert statte to local storage
+issue #7: fix bug where the table rows are filled and then reduced
+issue #8: fix the confirm multiple calls issue
+issue #9: complete the delete button
+issue #10: make the update dialog box
+issue #11: make the update operation
+issue #12: put marker on table to show if confirmed booking or not
+issue #13: card auto resizing issue
+issue #14: settings page (optional)
+issue #15: clear date on make booking
+issue #16: no internet notification
+issue #17: fix sorting issue
+
+Major issues:
+8,9,10,11,12
+make the data input have no min max dates 
+but when making a booking check whether the date is earlier than today
+make the dialog boxes
+find out why the fuck is the timelist being destroyed with every refresh of the page
+validate whether the start time is bigger than end time when submitting
+write the sorting functions and fix the table typos
+
+things to fix:
+check out getting the values from the booking

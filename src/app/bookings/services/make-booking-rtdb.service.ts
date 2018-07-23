@@ -46,12 +46,15 @@ export class MakeBookingRtdbService {
       isStudent: studentORdept == "Student Body" ? 1 : 0,
       isDepartment: studentORdept == "Department" ? 1 : 0
     };
+    console.log("about to push booking");
     const newbookingref = this.db.list("/root/main-bookings").push(mainPush);
+    console.log("pushed new booking");
     const tentativePush = {
       id: newbookingref.key,
       "start-time": startingTime,
       "end-time": endingTime
     };
+    console.log("about to push tentative booking");
     this.db
       .list(
         "/root/tentative-bookings/" +
@@ -65,6 +68,7 @@ export class MakeBookingRtdbService {
           "/"
       )
       .push(tentativePush);
+      console.log("pushed tentative booking");
   }
 }
 

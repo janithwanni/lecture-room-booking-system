@@ -52,16 +52,12 @@ export class MakebookingsComponent implements OnInit, DoCheck {
     if (this.searchbookings.optionCounts != null) {
       if (
         this.searchbookings.optionCounts["confirmed"] == 0 &&
-        this.searchbookings.optionCounts["tentative"] > 0 &&
+        this.searchbookings.optionCounts["tentative"] >= 0 &&
         this.searchbookings.isDataSearched == true
       ) {
-        console.log("list of values from searchbookings");
-        console.log(
-          this.searchbookings.optionCounts["confirmed"],
-          this.searchbookings.optionCounts["tentative"],
-          this.searchbookings.isDataSearched
-        );
         this.isFree = true;
+      } else {
+        this.isFree = false;
       }
     }
   }
@@ -90,6 +86,7 @@ export class MakebookingsComponent implements OnInit, DoCheck {
       this.date >= this.minDate &&
       this.startingTime != null &&
       this.endingTime != null &&
+      this.startingTime < this.endingTime &&
       this.title != null &&
       this.description != null &&
       this.by != null &&
@@ -114,6 +111,7 @@ export class MakebookingsComponent implements OnInit, DoCheck {
         this.description
       );
     } else {
+      console.log("error found");
       console.log(
         this.hall,
         this.date,

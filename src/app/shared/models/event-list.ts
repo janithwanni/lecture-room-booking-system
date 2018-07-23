@@ -22,17 +22,18 @@ export class SetCurrentUser extends StoreEvent {
   }
 }
 export class PushBookingtoList extends StoreEvent {
-  constructor(payload: Booking[]) {
+  constructor(payload: Booking) {
     super(payload);
-    console.log(payload);
+    console.log("push bookigs to list payload", payload);
   }
 
   getNewState(state: State) {
+    state.displayBookingList.push(this.payload);
     return {
       ...state,
       currentUser: state.currentUser,
       hallList: state.hallList,
-      displayBookingList: this.payload,
+      displayBookingList: state.displayBookingList,
       timeList: state.timeList
     };
   }

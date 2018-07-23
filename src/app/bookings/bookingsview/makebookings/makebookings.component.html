@@ -31,7 +31,7 @@
   <br/>
   <mat-form-field>
     <mat-select placeholder="Ending Time" [(ngModel)]="endingTime" name="endingTime">
-      <mat-option *ngFor="let end of endTime | async;let i = index" [value]="i">{{end}}</mat-option>
+      <mat-option *ngFor="let end of endTime | async;let i = index" [value]="(i+1)">{{end}}</mat-option>
     </mat-select>
   </mat-form-field>
   <br/>

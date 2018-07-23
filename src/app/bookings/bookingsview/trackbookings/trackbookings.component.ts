@@ -12,6 +12,7 @@ import {
 } from "@angular/animations";
 import { Booking } from "../../../shared/models/booking";
 import { BookingsOpsRtdbService } from "../../services/bookings-ops-rtdb.service";
+import { of, Observable } from "rxjs";
 
 @Component({
   selector: "bookings/bookingsview/trackbookings",
@@ -35,13 +36,15 @@ export class TrackbookingsComponent implements OnInit, DoCheck {
   constructor(
     public store: DatastoreManagerService,
     public search: SearchbookingsRtdbService,
-    private ops: BookingsOpsRtdbService
+    private ops: BookingsOpsRtdbService,
+    private searchbookings: SearchbookingsRtdbService
   ) {}
+  isFree: boolean;
   expandedBooking: Booking;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: TrackbookingsDataSource;
-  isSearched: boolean = this.search.isDataSearched;
+  isSearched: Observable<boolean> = of(this.search.isDataSearched);
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ["date", "start-time", "end-time", "by", "hall-id"];
 
@@ -53,7 +56,18 @@ export class TrackbookingsComponent implements OnInit, DoCheck {
     );
   }
   ngDoCheck() {
-    /* console.log(this.expandedBooking); */
+    this.isSearched = of(this.searchbookings.isDataSearched);
+    if (this.searchbookings.optionCounts != null) {
+      if (
+        this.searchbookings.optionCounts["confirmed"] == 0 &&
+        this.searchbookings.optionCounts["tentative"] >= 0 &&
+        this.searchbookings.isDataSearched == true
+      ) {
+        this.isFree = true;
+      } else {
+        this.isFree = false;
+      }
+    }
   }
 
   confirmBooking(booking: Booking) {

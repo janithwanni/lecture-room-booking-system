@@ -31,7 +31,7 @@ export class DatastoreManagerService {
     );
   }
 
-  pushBookingtoList(booking: Booking[]) {
+  pushBookingtoList(booking: Booking) {
     this.store.dispatch(new PushBookingtoList(booking));
   }
 
