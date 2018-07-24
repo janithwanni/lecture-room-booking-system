@@ -14,6 +14,7 @@ export class TimeslotManagerService {
     private store: DatastoreManagerService
   ) {}
 
+  timeList: Time[] = [];
   startTimes: string[] = [];
   endTimes: string[] = [];
 

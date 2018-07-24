@@ -1,0 +1,169 @@
+for (let option of options) {
+      this.isDataSearched = true;
+      this.db
+        .list(
+          "/root/" +
+            option +
+            "-bookings/" +
+            year +
+            "/" +
+            month +
+            "/" +
+            day +
+            "/lct-hall-" +
+            (hall + 1)
+        )
+        .valueChanges()
+        .pipe(
+          map(optionDetail => {
+            for (let option of optionDetail) {
+              //get every booking in tent or conf
+              //get bookingstart and endtime
+              //check if it fits
+              //get details and push to bookingList in state
+              let bookingStartTime = +option["start-time"].slice(
+                option["start-time"].length - 2,
+                option["start-time"].length
+              );
+              let bookingEndTime = +option["end-time"].slice(
+                option["end-time"].length - 2,
+                option["end-time"].length
+              );
+              if (
+                (bookingStartTime >= +starttime &&
+                  bookingStartTime <= +endtime) ||
+                (bookingEndTime >= +starttime && bookingEndTime <= +endtime)
+              ) {
+                this.db
+                  .list("/root/main-bookings/" + option["id"] + "/")
+                  .snapshotChanges()
+                  .subscribe(snap => {
+                    let booking: Booking = {
+                      id: option["id"],
+                      by: "",
+                      confirmed: 0,
+                      date: "",
+                      description: "",
+                      "end-time": "",
+                      "start-time": "",
+                      title: "",
+                      "hall-id": "",
+                      isDepartment: 0,
+                      isStudent: 0,
+                      "user-id": ""
+                    };
+                    for (let row of snap) {
+                      booking[row.payload.key] = row.payload.val() + "";
+                    }
+                    for (let time of this.timeList) {
+                      if (booking["start-time"] == time.id) {
+                        booking["start-time"] = time.value;
+                      }
+                      if (booking["end-time"] == time.id) {
+                        booking["end-time"] = time.value;
+                      }
+                    }
+                    for (let hall of this.hallList) {
+                      if (booking["hall-id"] == hall.id) {
+                        booking["hall-id"] = hall.name;
+                        break;
+                      }
+                    }
+                    this.store.pushBookingtoList(booking);
+                  });
+              }
+            }
+          })
+        )
+        .subscribe(() => {});
+    }
+
+
+
+this.db
+      .list(
+        "/root/date-bookings/" +
+          year +
+          "/" +
+          month +
+          "/" +
+          day +
+          "/lct-hall-" +
+          (hall + 1)
+      )
+      .valueChanges()
+      .subscribe(children => {
+        console.log("children", children.length);
+        //go through the childrens and get ids of clashing ones
+        //subscribing the main bookings of those ids
+        //check if the state is empty
+        for (let child of children) {
+          let childStartTime = +child["start-time"].slice(
+            child["start-time"].length - 2,
+            child["start-time"].length
+          );
+          let childEndTime = +child["end-time"].slice(
+            child["end-time"].length - 2,
+            child["end-time"].length
+          );
+          if (
+            (childStartTime >= +starttime && childStartTime <= +endtime) ||
+            (childEndTime >= +starttime && childEndTime <= +endtime)
+          ) {
+            this.db
+              .list("/root/main-bookings/" + child["id"] + "/")
+              .snapshotChanges()
+              .subscribe(snap => {
+                let booking: Booking = {
+                  id: child["id"],
+                  by: "",
+                  confirmed: 0,
+                  date: "",
+                  description: "",
+                  "end-time": "",
+                  "start-time": "",
+                  title: "",
+                  "hall-id": "",
+                  isDepartment: 0,
+                  isStudent: 0,
+                  "user-id": ""
+                };
+                for (let row of snap) {
+                  console.log("snap length", snap.length);
+                  booking[row.payload.key] = row.payload.val() + "";
+                }
+                for (let time of this.timeList) {
+                  if (booking["start-time"] == time.id) {
+                    booking["start-time"] = time.value;
+                  }
+                  if (booking["end-time"] == time.id) {
+                    booking["end-time"] = time.value;
+                  }
+                }
+                for (let hall of this.hallList) {
+                  if (booking["hall-id"] == hall.id) {
+                    booking["hall-id"] = hall.name;
+                    break;
+                  }
+                }
+                this.store.getDisplayBookingList().subscribe(displays => {
+                  let index = 0;
+                  for (let displayRow of displays) {
+                    //if the booking id exists in the state
+                    if (displayRow.id == booking["id"]) {
+                      //update it
+                      displays[index] = booking;
+                    } else {
+                      //or else push it to the back
+                      displays.push(booking);
+                    }
+                    index++;
+                  }
+                  console.log(displays);
+                  this.store.pushBookingArraytoList(displays);
+                });
+              });
+          }
+        }
+      });
+    return bookingsList;    

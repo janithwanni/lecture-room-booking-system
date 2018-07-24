@@ -38,6 +38,22 @@ export class PushBookingtoList extends StoreEvent {
     };
   }
 }
+
+export class PushBookingArraytoList extends StoreEvent {
+  constructor(payload: Booking[]) {
+    super(payload);
+  }
+  getNewState(state: State) {
+    console.log("pushing state", state, this.payload);
+    return {
+      ...state,
+      currentUser: state.currentUser,
+      hallList: state.hallList,
+      displayBookingList: this.payload,
+      timeList: state.timeList
+    };
+  }
+}
 export class PushTimeList extends StoreEvent {
   constructor(payload: Time[]) {
     /* console.log(payload); */

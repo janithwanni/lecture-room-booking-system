@@ -13,32 +13,40 @@ export class BookingsOpsRtdbService {
     private db: AngularFireDatabase,
     private store: DatastoreManagerService
   ) {
-    this.store.getTimeList().subscribe(times => {
+    /* this.store.getTimeList().subscribe(times => {
       console.log("got thetimes");
       this.timeList = times;
     });
     this.store.getHallList().subscribe(halls => {
       console.log("got the halls");
       this.hallList = halls;
-    });
+    }); */
   }
 
   timeList: Time[] = [];
   hallList: Hall[] = [];
   confirmBookings(booking: Booking) {
-    console.log(booking);
     //update confirmed field of the bookings to true
     this.db.list("/root/main-bookings/").update(booking.id, { confirmed: 1 });
     console.log("updated confirmed key in bookings");
     //delete the booking id on tentative
-    let bookingDateArr = booking.date.split("-");
+    /* let bookingDateArr = booking.date.split("-");
     let year = bookingDateArr[0];
     let month = bookingDateArr[1];
     let day = bookingDateArr[2];
     let hallid = "";
     let startID = "";
     let endID = "";
-    for (let hall of this.hallList) {
+    hallid = this.hallList.find(hall => {
+      return hall.name == booking["hall-id"];
+    }).id;
+    startID = this.timeList.find(time => {
+      return time.value == booking["start-time"];
+    }).id;
+    endID = this.timeList.find(time => {
+      return time.value == booking["end-time"];
+    }).id; */
+    /* for (let hall of this.hallList) {
       if (hall.name == booking["hall-id"]) {
         hallid = hall.id;
         break;
@@ -51,7 +59,7 @@ export class BookingsOpsRtdbService {
       if (time.value == booking["end-time"]) {
         endID = time.id;
       }
-    }
+    } */
     /* this.db
       .object(
         "/root/tentative-bookings/" +
@@ -70,7 +78,8 @@ export class BookingsOpsRtdbService {
             .limitToFirst(1)
       )
       .remove(); */
-    console.log("removed from tentative bookings");
     //make the field on confirmed
   }
+
+  deleteBooking(booking: Booking) {}
 }

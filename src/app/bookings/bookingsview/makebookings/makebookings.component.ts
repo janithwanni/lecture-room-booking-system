@@ -49,16 +49,10 @@ export class MakebookingsComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    if (this.searchbookings.optionCounts != null) {
-      if (
-        this.searchbookings.optionCounts["confirmed"] == 0 &&
-        this.searchbookings.optionCounts["tentative"] >= 0 &&
-        this.searchbookings.isDataSearched == true
-      ) {
-        this.isFree = true;
-      } else {
-        this.isFree = false;
-      }
+    if (this.searchbookings.isDataSearched == true) {
+      this.isFree = true;
+    } else {
+      this.isFree = false;
     }
   }
   ngOnInit() {}

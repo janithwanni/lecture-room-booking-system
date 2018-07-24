@@ -16,6 +16,7 @@ export class HallInfoManagerService {
     private store: DatastoreManagerService
   ) {}
 
+  hallList: Hall[] = [];
   getHalls(): Observable<any> {
     var items: Observable<any> = this.db
       .list("/root/lecture-halls")

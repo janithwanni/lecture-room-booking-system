@@ -5,7 +5,8 @@ import {
   SetCurrentUser,
   PushBookingtoList,
   PushTimeList,
-  PushHallList
+  PushHallList,
+  PushBookingArraytoList
 } from "../models/event-list";
 import { flatMap } from "rxjs/operators";
 import { of, Observable } from "rxjs";
@@ -32,7 +33,13 @@ export class DatastoreManagerService {
   }
 
   pushBookingtoList(booking: Booking) {
+    console.log("push booking to list");
     this.store.dispatch(new PushBookingtoList(booking));
+  }
+
+  pushBookingArraytoList(bookings: Booking[]) {
+    console.log("pushing booking array to list");
+    this.store.dispatch(new PushBookingArraytoList(bookings));
   }
 
   getDisplayBookingList(): Observable<Booking[]> {
