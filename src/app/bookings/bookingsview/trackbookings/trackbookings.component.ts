@@ -69,5 +69,13 @@ export class TrackbookingsComponent implements OnInit, DoCheck {
     this.ops.confirmBookings(booking);
   }
 
-  deleteBooking(id: string) {}
+  deleteBooking(booking: Booking) {
+    //open the are you sure dialog
+    //run only when confirmed
+    this.ops.deleteBooking(booking);
+  }
+
+  updateBooking(booking: Booking) {
+    //open the update dialog
+  }
 }

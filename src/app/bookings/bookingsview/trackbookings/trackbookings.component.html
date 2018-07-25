@@ -1,8 +1,8 @@
-<div *ngIf="isDataSearched | async">
+<!-- <div *ngIf="isDataSearched | async">
   <div *ngIf="isFree">
     <h4 class="mat-h4" class="free-text"> Free </h4>
   </div>
-</div>
+</div> -->
 <div class="mat-elevation-z8">
   <table style="width:100%" mat-table #table [dataSource]="dataSource" matSort multiTemplateDataRows>
     <!-- Date Column -->
@@ -48,6 +48,9 @@
             <div class="booking-detail-button-row">
               <span class="booking-detail-button">
                 <button mat-raised-button color="primary" (click)="confirmBooking(element);">Confirm</button>
+              </span>
+              <span class="booking-detail-button">
+                <button mat-raised-button color="primary" (click)="updateBooking(element);">Update</button>
               </span>
               <span class="booking-detail-button">
                 <button mat-raised-button color="warn" (click)="deleteBooking(id);">Delete</button>

@@ -28,14 +28,22 @@ import {
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatRadioModule } from "@angular/material/radio";
+import { MatDialogModule } from "@angular/material/dialog";
 /*components imported */
 /* import { StatusviewComponent } from './statusview/statusview.component'; */
 import { BookingsviewComponent } from "./bookingsview/bookingsview.component";
 import { MakebookingsComponent } from "./bookingsview/makebookings/makebookings.component";
 import { TrackbookingsComponent } from "./bookingsview/trackbookings/trackbookings.component";
+import { ConfirmDialogComponent } from "./dialogs/confirm-dialog/confirm-dialog.component";
+import { UpdateDialogComponent } from "./dialogs/update-dialog/update-dialog.component";
 
 @NgModule({
-  entryComponents: [MakebookingsComponent, TrackbookingsComponent],
+  entryComponents: [
+    MakebookingsComponent,
+    TrackbookingsComponent,
+    ConfirmDialogComponent,
+    UpdateDialogComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -66,13 +74,16 @@ import { TrackbookingsComponent } from "./bookingsview/trackbookings/trackbookin
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ],
   declarations: [
     /*components to display */
     BookingsviewComponent,
     MakebookingsComponent,
-    TrackbookingsComponent
+    TrackbookingsComponent,
+    ConfirmDialogComponent,
+    UpdateDialogComponent
   ]
 })
 export class BookingsModule {}
