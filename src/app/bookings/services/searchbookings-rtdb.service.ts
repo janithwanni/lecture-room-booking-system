@@ -30,6 +30,7 @@ export class SearchbookingsRtdbService {
   timeList: Time[] = [];
   hallList: Hall[] = [];
   isDataSearched: boolean = false;
+  hasConfirmedBooking: boolean = false;
 
   bookingListCompiled: Booking[] = [];
   getBookingsInRange(
@@ -55,6 +56,7 @@ export class SearchbookingsRtdbService {
       )
       .valueChanges()
       .subscribe(children => {
+        this.isDataSearched = true;
         for (let child of children) {
           let childStartTime = +child["start-time"].slice(
             child["start-time"].length - 2,
@@ -97,7 +99,6 @@ export class SearchbookingsRtdbService {
                   for (let row of snap) {
                     booking[row.payload.key] = row.payload.val() + "";
                   }
-
                   booking["start-time"] = this.timeList.find(elem => {
                     return elem["id"] == booking["start-time"];
                   }).value;
@@ -109,6 +110,10 @@ export class SearchbookingsRtdbService {
                   booking["hall-id"] = this.hallList.find(elem => {
                     return elem["id"] == booking["hall-id"];
                   }).name;
+
+                  if (booking.confirmed == 1) {
+                    this.hasConfirmedBooking = true;
+                  }
                   const findelm = this.bookingListCompiled.find(val => {
                     return val["id"] == booking["id"];
                   });

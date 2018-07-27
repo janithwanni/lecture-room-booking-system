@@ -1,3 +1,75 @@
-<p>
-  update-dialog works!
-</p>
+<h4 mat-dialog-title>Editing Booking </h4>
+<span>Edit the fields that need to be updated</span>
+<mat-dialog-content>
+  <div>
+    <form #updatebookingform="ngForm">
+      <h4 class="mat-h4"> Select Lecture Hall </h4>
+      <mat-form-field>
+        <mat-select [(ngModel)]="hall" name="hall" placeholder="Lecture Hall">
+          <mat-option *ngFor="let item of items | async;let i = index" [value]="i">{{item.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br/>
+      <mat-divider [inset]="true"></mat-divider>
+      <br/>
+
+      <h4 class="mat-h4"> Select date and time </h4>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" (dateInput)="pickDate('input', $event)" placeholder="Date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker></mat-datepicker>
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <mat-select placeholder="Starting Time" [(ngModel)]="startingTime" name="startingTime">
+          <mat-option *ngFor="let start of startTime | async;let i = index" [value]="i">{{start}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <mat-select placeholder="Ending Time" [(ngModel)]="endingTime" name="endingTime">
+          <mat-option *ngFor="let end of endTime | async;let i = index" [value]="(i+1)">{{end}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br/>
+      <mat-divider [inset]="true"></mat-divider>
+      <br/>
+      <div>
+        <h4 class="mat-h4">Title and Description of event</h4>
+        <mat-form-field>
+          <input [(ngModel)]="title" name="title" matInput placeholder="Title of the Event" />
+        </mat-form-field>
+        <br/>
+        <mat-form-field>
+          <textarea [(ngModel)]="description" name="description" matInput placeholder="Description of the event" rows="5" maxlength="256"
+            style="resize: none"></textarea>
+        </mat-form-field>
+        <br/>
+
+        <mat-divider [inset]="true"></mat-divider>
+        <br/>
+
+        <h4 class="mat-h4">Request Information</h4>
+        <mat-form-field>
+          <input [(ngModel)]="by" name="by" matInput placeholder="Name of requesting person?" />
+        </mat-form-field>
+
+        <br/>
+
+        <mat-radio-group style="display: inline-flex;flex-direction: column;" [(ngModel)]="studentORdept" name="studentORdept">
+          <mat-radio-button *ngFor="let option of studOrDeptOptions" [value]="option">
+            {{option}}
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <br/>
+        <mat-divider [inset]="true"></mat-divider>
+        <br/>
+
+
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="primary" (click)="updateBookingClick(data);updatebookingform.reset();">Update Booking </button>
+      </div>

@@ -5,20 +5,26 @@ import { Time } from "../../shared/models/time";
 import { Hall } from "../../shared/models/hall";
 import { MatDialog } from "@angular/material";
 import { ConfirmDialogComponent } from "../dialogs/confirm-dialog/confirm-dialog.component";
+import { UpdateDialogComponent } from "../dialogs/update-dialog/update-dialog.component";
+import { DatastoreManagerService } from "../../shared/services/datastore-manager.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class BookingsOpsRtdbService {
-  constructor(private db: AngularFireDatabase, private dialog: MatDialog) {
-    /* this.store.getTimeList().subscribe(times => {
+  constructor(
+    private db: AngularFireDatabase,
+    private dialog: MatDialog,
+    private store: DatastoreManagerService
+  ) {
+    this.store.getTimeList().subscribe(times => {
       console.log("got thetimes");
       this.timeList = times;
     });
     this.store.getHallList().subscribe(halls => {
       console.log("got the halls");
       this.hallList = halls;
-    }); */
+    });
   }
 
   timeList: Time[] = [];
@@ -52,7 +58,46 @@ export class BookingsOpsRtdbService {
       }
     });
   }
-  updateBooking(booking: Booking) {}
+  updateBooking(booking: Booking) {
+    const dialogRef = this.dialog.open(UpdateDialogComponent, {
+      width: "550px",
+      height: "550px",
+      data: booking
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log("The dialog was closed", result);
+      let edited: Booking = result;
+      console.log(
+        booking["start-time"],
+        edited["start-time"],
+        booking["end-time"],
+        edited["end-time"]
+      );
+      //check whether start and end time of the result and the original booking
+      if (
+        booking["start-time"] ==
+          this.timeList.find(val => {
+            return val.id == edited["start-time"];
+          }).value &&
+        booking["end-time"] ==
+          this.timeList.find(val => {
+            return val.id == edited["end-time"];
+          }).value
+      ) {
+        Object.entries(edited).forEach(([key, value]) => {
+          console.log(key, value);
+          if (key != "id") {
+            this.db
+              .object("/root/main-bookings/" + edited.id + "/" + key)
+              .set(value);
+          }
+        });
+      } else {
+        //delete the
+      }
+    });
+  }
 }
 
 /*  let confirmed: boolean = false;

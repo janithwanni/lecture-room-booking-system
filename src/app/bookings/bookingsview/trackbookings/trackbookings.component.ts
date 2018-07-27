@@ -77,5 +77,6 @@ export class TrackbookingsComponent implements OnInit, DoCheck {
 
   updateBooking(booking: Booking) {
     //open the update dialog
+    this.ops.updateBooking(booking);
   }
 }
