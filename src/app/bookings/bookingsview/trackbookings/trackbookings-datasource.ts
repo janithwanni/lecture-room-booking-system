@@ -96,6 +96,7 @@ export class TrackbookingsDataSource extends DataSource<Booking> {
    * this would be replaced by requesting the appropriate data from the server.
    */
   private getPagedData(data: Booking[]) {
+    this.paginator.pageSize = 10;
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }

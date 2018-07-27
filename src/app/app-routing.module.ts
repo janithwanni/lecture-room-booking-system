@@ -5,6 +5,7 @@ import { CanactivateLoginGuard } from "./login/guards/canactivate-login.guard";
 import { CanactivateHomeGuard } from "./home/guards/canactivate-home.guard";
 
 const routes: Routes = [
+  { path: "", pathMatch: "full", redirectTo: "login" },
   { path: "login", loadChildren: "app/login/login.module#LoginModule" },
   {
     path: "home",
@@ -15,8 +16,7 @@ const routes: Routes = [
         loadChildren: "app/bookings/bookings.module#BookingsModule"
       }
     ]
-  },
-  { path: "", redirectTo: "/login/", pathMatch: "full" }
+  }
 ];
 
 @NgModule({

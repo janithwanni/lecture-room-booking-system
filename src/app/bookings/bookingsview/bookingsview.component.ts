@@ -14,7 +14,7 @@ export class BookingsviewComponent {
     {
       title: "Search bookings",
       cols: 1,
-      rows: 1,
+      rows: 2,
       component: MakebookingsComponent
     },
     {

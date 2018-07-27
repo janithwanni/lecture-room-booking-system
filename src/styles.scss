@@ -1,22 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-html,body{ height: 100%} //this is for the login dialog component to work properly if i remember
+/* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
+@import "./main-material-theme.scss";
+html,
+body {
+  height: 100%;
+} //this is for the login dialog component to work properly if i remember
 
-$light-blue: #74B9FF;
-$mid-blue: #3F97F1;
-$dark-blue: #0984E3;
+$light-blue: #74b9ff;
+$mid-blue: #3f97f1;
+$dark-blue: #0984e3;
 
-$light-grey: #B2BEC3;
-$mid-grey: #51595E;
-$dark-grey: #2D3438;
+$light-grey: #b2bec3;
+$mid-grey: #51595e;
+$dark-grey: #2d3438;
 
-$light-red: #FF7675;
-$mid-red: #E14B4A;
-$dark-red: #D63031;
+$light-red: #ff7675;
+$mid-red: #e14b4a;
+$dark-red: #d63031;
 
-$light-green: #55C0A2;
-$mid-green: #00B894;
-$dark-green: #26B58D;
+$light-green: #55c0a2;
+$mid-green: #00b894;
+$dark-green: #26b58d;
 
-
-body { margin: 0; }
+body {
+  margin: 0;
+}

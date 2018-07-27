@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "angularfire2/database";
 import { Observable, of, concat } from "rxjs";
-import { flatMap } from "rxjs/operators";
+
 import { TimeslotManagerService } from "./timeslot-manager.service";
 import { Hall } from "../models/hall";
 import { DatastoreManagerService } from "./datastore-manager.service";

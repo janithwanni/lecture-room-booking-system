@@ -6,9 +6,6 @@ import { Booking } from "../../shared/models/booking";
 import { DatastoreManagerService } from "../../shared/services/datastore-manager.service";
 import { Time } from "../../shared/models/time";
 import { Hall } from "../../shared/models/hall";
-import { of } from "rxjs";
-import { HallInfoManagerService } from "../../shared/services/hall-info-manager.service";
-import { TimeslotManagerService } from "../../shared/services/timeslot-manager.service";
 
 @Injectable({
   providedIn: "root"
