@@ -94,7 +94,32 @@ export class BookingsOpsRtdbService {
           }
         });
       } else {
-        //delete the
+        //delete the one at the date bookings and then make a new one at the set date
+        let bookingDateArr = booking.date.split("-");
+        let year = bookingDateArr[0];
+        let month = bookingDateArr[1];
+        let day = bookingDateArr[2];
+        let hallid = this.hallList.find(hall => {
+          return hall.name == booking["hall-id"];
+        }).id;
+        this.db
+          .list(
+            "/root/date-bookings" +
+              year +
+              "/" +
+              month +
+              "/" +
+              day +
+              "/" +
+              hallid +
+              "/",
+            ref =>
+              ref
+                .orderByChild("id")
+                .equalTo(booking.id)
+                .limitToFirst(1)
+          )
+          .remove();
       }
     });
   }

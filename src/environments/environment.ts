@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  firebase:{
+  firebase: {
     apiKey: "AIzaSyBgAGP7Vsmb0VIkcRDUCWqtVMcDGQGHX3I",
     authDomain: "usjp-lecture-room-reservation.firebaseapp.com",
     databaseURL: "https://usjp-lecture-room-reservation.firebaseio.com",
