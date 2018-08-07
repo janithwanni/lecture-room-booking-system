@@ -4,16 +4,19 @@ import { AngularFireAuth } from "angularfire2/auth";
 import { Router } from "@angular/router";
 import { DatastoreManagerService } from "../../shared/services/datastore-manager.service";
 import { AngularFireDatabase } from "angularfire2/database";
+import { MatSnackBar } from "@angular/material";
 @Injectable({
   providedIn: "root"
 })
 export class UserauthService {
   firebaseUser: Observable<firebase.User>;
+  loadingStatus: string = "WAITING";
   constructor(
     public ngFireAuth: AngularFireAuth,
     private router: Router,
     private store: DatastoreManagerService,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private snackbar: MatSnackBar
   ) {
     //angular fire auth is a service used to do the auth processes
     this.firebaseUser = ngFireAuth.authState;
@@ -23,9 +26,11 @@ export class UserauthService {
     this.ngFireAuth.auth
       .setPersistence("local")
       .then(() => {
+        let snackBarRef = this.snackbar.open("Signing in to the System");
         return this.ngFireAuth.auth
           .signInWithEmailAndPassword(email, password)
           .then(value => {
+            snackBarRef.dismiss();
             this.db
               .list("/root/users/" + value.user.uid + "/")
               .snapshotChanges()
@@ -49,16 +54,22 @@ export class UserauthService {
                 this.router.navigateByUrl("/home/bookings/main");
               });
           })
-          .catch(function(error) {
+          .catch(error => {
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log("ERROR: " + errorCode + " ===> " + errorMessage);
+            let snackbarRef = this.snackbar.open(
+              "Error: Error Message: " + error.message
+            );
           });
       })
       .catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
         console.log("ERROR: " + errorCode + " ===> " + errorMessage);
+        let snackbarRef = this.snackbar.open(
+          "Error: Error Message: " + error.message
+        );
       });
   }
 
