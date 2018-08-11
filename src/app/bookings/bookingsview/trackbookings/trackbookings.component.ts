@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, DoCheck } from "@angular/core";
-import { MatPaginator, MatSort } from "@angular/material";
+import { MatPaginator, MatSort, MatSnackBar } from "@angular/material";
 import { TrackbookingsDataSource } from "./trackbookings-datasource";
 import { DatastoreManagerService } from "../../../shared/services/datastore-manager.service";
 import { SearchbookingsRtdbService } from "../../services/searchbookings-rtdb.service";
@@ -72,6 +72,7 @@ export class TrackbookingsComponent implements OnInit, DoCheck {
   deleteBooking(booking: Booking) {
     //open the are you sure dialog
     //run only when confirmed
+    console.log("about to delete" + booking);
     this.ops.deleteBooking(booking);
   }
 

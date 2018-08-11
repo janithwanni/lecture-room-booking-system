@@ -1,5 +1,5 @@
 <form #makebookingform="ngForm">
-  <h4 class="mat-h4"> Select Lecture Hall </h4>
+  <h4 class="mat-h4"> Select Lecture Hall* </h4>
   <mat-form-field>
     <mat-select [(ngModel)]="hall" name="hall" placeholder="Lecture Hall">
       <mat-option *ngFor="let item of items | async;let i = index" [value]="i">{{item.name}}</mat-option>
@@ -10,7 +10,7 @@
   <mat-divider [inset]="true"></mat-divider>
   <br/>
 
-  <h4 class="mat-h4"> Select date and time </h4>
+  <h4 class="mat-h4"> Select date and time* </h4>
   <mat-form-field>
     <input matInput [matDatepicker]="picker" (dateInput)="pickDate('input', $event)" placeholder="Date">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

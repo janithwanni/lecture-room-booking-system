@@ -1,6 +1,9 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "angularfire2/database";
 import { UserInfoManagerService } from "../../shared/services/user-info-manager.service";
+import { MatSnackBar } from "@angular/material";
+import { Booking } from "../../shared/models/booking";
+import { DatastoreManagerService } from "../../shared/services/datastore-manager.service";
 
 @Injectable({
   providedIn: "root"
@@ -8,7 +11,9 @@ import { UserInfoManagerService } from "../../shared/services/user-info-manager.
 export class MakeBookingRtdbService {
   constructor(
     private db: AngularFireDatabase,
-    private userinfo: UserInfoManagerService
+    private userinfo: UserInfoManagerService,
+    private snackbar: MatSnackBar,
+    private store: DatastoreManagerService
   ) {}
   /*
   @Input() hall: string;
@@ -48,16 +53,23 @@ export class MakeBookingRtdbService {
     };
     console.log("about to push booking");
     const newbookingref = this.db.list("/root/main-bookings").push(mainPush);
+    let snackBarRef = this.snackbar.open(
+      "Successfully Made Bookings",
+      "Dismiss"
+    );
+    snackBarRef.onAction().subscribe(() => {
+      snackBarRef.dismiss();
+    });
     console.log("pushed new booking");
     const tentativePush = {
       id: newbookingref.key,
       "start-time": startingTime,
       "end-time": endingTime
     };
-    console.log("about to push tentative booking");
+    console.log("about to push date booking");
     this.db
       .list(
-        "/root/tentative-bookings/" +
+        "/root/date-bookings/" +
           date.getFullYear() +
           "/" +
           (date.getMonth() + 1) +
@@ -68,7 +80,23 @@ export class MakeBookingRtdbService {
           "/"
       )
       .push(tentativePush);
-      console.log("pushed tentative booking");
+    console.log("pushed tentative booking");
+    let recentBooking: Booking = {
+      "hall-id": "lct-hall-" + (hall + 1),
+      "user-id": this.userinfo.getUserID(),
+      date:
+        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate(),
+      title: title,
+      description: description,
+      confirmed: 0,
+      "start-time": startingTime,
+      "end-time": endingTime,
+      by: by,
+      isStudent: studentORdept == "Student Body" ? 1 : 0,
+      isDepartment: studentORdept == "Department" ? 1 : 0,
+      id: newbookingref.key,
+    };
+    this.store.pushBookingArraytoList([recentBooking]);
   }
 }
 

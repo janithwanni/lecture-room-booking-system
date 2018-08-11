@@ -3,7 +3,7 @@ import { AngularFireDatabase } from "angularfire2/database";
 import { Booking } from "../../shared/models/booking";
 import { Time } from "../../shared/models/time";
 import { Hall } from "../../shared/models/hall";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MatSnackBar } from "@angular/material";
 import { ConfirmDialogComponent } from "../dialogs/confirm-dialog/confirm-dialog.component";
 import { UpdateDialogComponent } from "../dialogs/update-dialog/update-dialog.component";
 import { DatastoreManagerService } from "../../shared/services/datastore-manager.service";
@@ -15,14 +15,15 @@ export class BookingsOpsRtdbService {
   constructor(
     private db: AngularFireDatabase,
     private dialog: MatDialog,
-    private store: DatastoreManagerService
+    private store: DatastoreManagerService,
+    private snackbar: MatSnackBar
   ) {
     this.store.getTimeList().subscribe(times => {
-      console.log("got thetimes");
+      //console.log("got thetimes");
       this.timeList = times;
     });
     this.store.getHallList().subscribe(halls => {
-      console.log("got the halls");
+      //console.log("got the halls");
       this.hallList = halls;
     });
   }
@@ -41,6 +42,10 @@ export class BookingsOpsRtdbService {
           .list("/root/main-bookings/")
           .update(booking.id, { confirmed: 1 });
         console.log("updated confirmed key in bookings");
+        let snackbarRef = this.snackbar.open("Confirmed Booking", "Dismiss");
+        snackbarRef.onAction().subscribe(() => {
+          snackbarRef.dismiss();
+        });
       }
     });
   }
@@ -54,7 +59,53 @@ export class BookingsOpsRtdbService {
       console.log("The dialog was closed", result);
       if (result == true) {
         this.db.list("/root/main-bookings/").remove(booking.id);
-        console.log("removed booking");
+        const year = booking.date.split("-")[0];
+        const month = booking.date.split("-")[1];
+        const day = booking.date.split("-")[2];
+        const bookingHallID = this.hallList.find(elem => {
+          return elem.name == booking["hall-id"];
+        }).id;
+        this.db
+          .list(
+            "/root/date-bookings/" +
+              year +
+              "/" +
+              month +
+              "/" +
+              day +
+              "/" +
+              bookingHallID +
+              "/",
+            ref =>
+              ref
+                .orderByChild("id")
+                .equalTo(booking.id)
+                .limitToFirst(1)
+          )
+          .snapshotChanges()
+          .subscribe(snap => {
+            console.log(snap[0].key);
+            this.db
+              .list(
+                "/root/date-bookings/" +
+                  year +
+                  "/" +
+                  month +
+                  "/" +
+                  day +
+                  "/" +
+                  bookingHallID +
+                  "/" +
+                  snap[0].key +
+                  "/"
+              )
+              .remove();
+            console.log("removed booking");
+            let snackbarRef = this.snackbar.open("Deleted Booking", "Dismiss");
+            snackbarRef.onAction().subscribe(() => {
+              snackbarRef.dismiss();
+            });
+          });
       }
     });
   }

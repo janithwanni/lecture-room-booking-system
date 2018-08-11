@@ -29,6 +29,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 /*components imported */
 /* import { StatusviewComponent } from './statusview/statusview.component'; */
 import { BookingsviewComponent } from "./bookingsview/bookingsview.component";
@@ -75,7 +76,8 @@ import { UpdateDialogComponent } from "./dialogs/update-dialog/update-dialog.com
     MatPaginatorModule,
     MatSortModule,
     MatExpansionModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   declarations: [
     /*components to display */
